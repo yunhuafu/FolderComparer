@@ -18,14 +18,25 @@
     <!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*">
-            </ColumnDefinition>
-            <ColumnDefinition Width="*">
-            </ColumnDefinition>
-            
-        </Grid.ColumnDefinitions>
-            <Panel Grid.Row="0" Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto">
+            </RowDefinition>
+            <RowDefinition Height="*">
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Button>Compare</Button>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <TextBox Name = "folder1TextBox"></TextBox>
+                <Button Click="SelectFolder1">Select Folder</Button>
                 <TreeView Name="myTreeViewEvent" >
                     <TreeViewItem Header="Employee1" IsSelected="True">
                         <TreeViewItem Header="Jesper Aaberg"/>
@@ -50,8 +61,10 @@
                         </TreeViewItem>
                     </TreeViewItem>
                 </TreeView>
-            </Panel>
-            <Panel Grid.Row="0" Grid.Column="1">
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <TextBox Name = "folder2TextBox"></TextBox>
+                <Button Click="SelectFolder2">Select Folder</Button>                
                 <TreeView Name="myTreeViewEvent2" >
                     <TreeViewItem Header="Employee1" IsSelected="True">
                         <TreeViewItem Header="Jesper Aaberg"/>
@@ -76,8 +89,8 @@
                         </TreeViewItem>
                     </TreeViewItem>
                 </TreeView>
-            </Panel>
+            </StackPanel>        
+        </Grid>
     </Grid>
-
 
 </Window>
