@@ -15,6 +15,69 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*">
+            </ColumnDefinition>
+            <ColumnDefinition Width="*">
+            </ColumnDefinition>
+            
+        </Grid.ColumnDefinitions>
+            <Panel Grid.Row="0" Grid.Column="0">
+                <TreeView Name="myTreeViewEvent" >
+                    <TreeViewItem Header="Employee1" IsSelected="True">
+                        <TreeViewItem Header="Jesper Aaberg"/>
+                        <TreeViewItem Header="Employee Number">
+                        <TreeViewItem Header="12345"/>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Work Days">
+                        <TreeViewItem Header="Monday"/>
+                        <TreeViewItem Header="Tuesday"/>
+                        <TreeViewItem Header="Thursday"/>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Employee2">
+                        <TreeViewItem Header="Dominik Paiha"/>
+                        <TreeViewItem Header="Employee Number">
+                        <TreeViewItem Header="98765"/>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Work Days">
+                        <TreeViewItem Header="Tuesday"/>
+                        <TreeViewItem Header="Wednesday"/>
+                        <TreeViewItem Header="Friday"/>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeView>
+            </Panel>
+            <Panel Grid.Row="0" Grid.Column="1">
+                <TreeView Name="myTreeViewEvent2" >
+                    <TreeViewItem Header="Employee1" IsSelected="True">
+                        <TreeViewItem Header="Jesper Aaberg"/>
+                        <TreeViewItem Header="Employee Number">
+                        <TreeViewItem Header="12345"/>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Work Days">
+                        <TreeViewItem Header="Monday"/>
+                        <TreeViewItem Header="Tuesday"/>
+                        <TreeViewItem Header="Thursday"/>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Employee2">
+                        <TreeViewItem Header="Dominik Paiha"/>
+                        <TreeViewItem Header="Employee Number">
+                        <TreeViewItem Header="98765"/>
+                        </TreeViewItem>
+                        <TreeViewItem Header="Work Days">
+                        <TreeViewItem Header="Tuesday"/>
+                        <TreeViewItem Header="Wednesday"/>
+                        <TreeViewItem Header="Friday"/>
+                        </TreeViewItem>
+                    </TreeViewItem>
+                </TreeView>
+            </Panel>
+    </Grid>
+
 
 </Window>
