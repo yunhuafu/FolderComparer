@@ -5,3 +5,12 @@ Features:
 4. Suppor plugins to comare file content. (provide a default file diff)
 5. Generet report. 
 
+
+ui to select and show two folders
+
+Comparer --> a "merged tree" to show on both panel
+
+
+
+
+
