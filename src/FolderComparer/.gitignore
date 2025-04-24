@@ -1,0 +1,4 @@
+.vs/**/*
+FolderComparer/.vs/**/*
+FolderComparer/bin/**/*
+FolderComparer/obj/**/*
