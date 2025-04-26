@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.panel-treeview {
+  background-color: lightcoral;
+  padding: 20px;
+  border-radius: 5px;
+}
