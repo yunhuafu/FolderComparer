@@ -5,7 +5,7 @@ import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 
 function TitleBar() {
   return (
-    <Grid container spacing={2}>
+    <Grid container>
         <Grid container sx={{justifyContent: "flex-start", alignItems:"center"}}>
           <CompareIcon sx={{ color: blue[500] }}/>
         </Grid>
