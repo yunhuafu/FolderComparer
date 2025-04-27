@@ -4,12 +4,16 @@ import { blue } from '@mui/material/colors';
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 
 function TitleBar() {
-  const [folderPath, setFolderPath] = useState<string>('');
+  const [folderPath1, setFolderPath1] = useState<string>('folder path 1');
+  const [folderPath2, setFolderPath2] = useState<string>('folder path 2');
 
-  const handleSelectFolder = async () => {
+  const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const path = await window.electronAPI.selectFolder();
-    if (path) {
-      setFolderPath(path);
+    if (path){
+      if (event.target.id == "selectFolder1")
+        setFolderPath1(path);
+      else if (event.target.id == "selectFolder2")
+        setFolderPath2(path);
     }
   };
 
@@ -22,11 +26,15 @@ function TitleBar() {
         <Grid container size="grow" sx={{justifyContent: "flex-end"}}>
             <Stack direction="row" spacing={2}>
                 <Box component="section" sx={{ p: 2}}/>
-                <TextField id = "folder1"variant="outlined"></TextField>
-                <Button variant="contained" onClick={handleSelectFolder}>Select Folder 1</Button>
+                <TextField variant="outlined"
+                  value = {folderPath1} ></TextField>
+                <Button variant="contained" 
+                  id = "selectFolder1" onClick={handleSelectFolder}>Select Folder 1</Button>
                 <Box component="section" sx={{ p: 2}}/>
-                <TextField variant="outlined"></TextField>
-                <Button variant="contained" onClick={handleSelectFolder}>Select Folder 2</Button>
+                <TextField variant="outlined"
+                  value = {folderPath1} ></TextField>
+                <Button variant="contained" 
+                  id = "selectFolder2" onClick={handleSelectFolder}>Select Folder 2</Button>
                 <Box component="section" sx={{ p: 2}}/>
                 <Button variant="contained">Compare</Button>
                 <Box component="section" sx={{ p: 2}}/>

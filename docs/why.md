@@ -13,3 +13,8 @@ package.json
     }
 }
 ```
+
+electron supports typescript, do not use @types/electron, it is outdated and assumes wrong types and method signatures. It will cause weird errors at runtime.
+
+npm create @quick-start/electron
+you can follow the prompt and add typescript, react...
