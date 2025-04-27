@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CompareIcon from '@mui/icons-material/Compare';
 import { blue } from '@mui/material/colors';
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 
 function TitleBar() {
+  const [folderPath, setFolderPath] = useState<string>('');
+
+  const handleSelectFolder = async () => {
+    const path = await window.electronAPI.selectFolder();
+    if (path) {
+      setFolderPath(path);
+    }
+  };
+
   return (
     <Grid container>
         <Grid container sx={{justifyContent: "flex-start", alignItems:"center"}}>
@@ -13,11 +22,11 @@ function TitleBar() {
         <Grid container size="grow" sx={{justifyContent: "flex-end"}}>
             <Stack direction="row" spacing={2}>
                 <Box component="section" sx={{ p: 2}}/>
-                <TextField variant="outlined"></TextField>
-                <Button variant="contained">Select Folder 1</Button>
+                <TextField id = "folder1"variant="outlined"></TextField>
+                <Button variant="contained" onClick={handleSelectFolder}>Select Folder 1</Button>
                 <Box component="section" sx={{ p: 2}}/>
                 <TextField variant="outlined"></TextField>
-                <Button variant="contained">Select Folder 2</Button>
+                <Button variant="contained" onClick={handleSelectFolder}>Select Folder 2</Button>
                 <Box component="section" sx={{ p: 2}}/>
                 <Button variant="contained">Compare</Button>
                 <Box component="section" sx={{ p: 2}}/>

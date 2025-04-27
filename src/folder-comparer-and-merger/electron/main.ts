@@ -1,11 +1,10 @@
-// electron.js
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
-//const isDev = require('electron-is-dev');
-const isDev = false;
+import isDev from 'electron-is-dev';
+//const isDev = false;
 console.log("isDev: " + isDev);
 
-let mainWindow;
+let mainWindow:BrowserWindow | null = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -13,6 +12,7 @@ function createWindow() {
     height: 800,
     webPreferences: {
       nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js')
     },
   });
 
@@ -39,4 +39,13 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+});
+
+ipcMain.handle('select-folder', async () => {
+  if (!mainWindow) return null;
+  const result = await dialog.showOpenDialog(mainWindow!, {
+    properties: ['openDirectory']
+  });
+
+  return result.canceled ? null : result.filePaths[0];
 });
