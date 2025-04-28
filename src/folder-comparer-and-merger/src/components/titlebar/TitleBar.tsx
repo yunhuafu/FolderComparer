@@ -4,8 +4,8 @@ import { blue } from '@mui/material/colors';
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 
 function TitleBar() {
-  const [folderPath1, setFolderPath1] = useState<string>('folder path 1');
-  const [folderPath2, setFolderPath2] = useState<string>('folder path 2');
+  const [folderPath1, setFolderPath1] = useState<string>('');
+  const [folderPath2, setFolderPath2] = useState<string>('');
 
   const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const path = await window.electronAPI.selectFolder();
@@ -16,6 +16,13 @@ function TitleBar() {
         setFolderPath2(path);
     }
   };
+
+  const handleCompareFolders = async () => {
+    const result = await window.electronAPI.compareFolders(folderPath1, folderPath2);
+    alert(result);
+  };
+
+
 
   return (
     <Grid container>
@@ -36,7 +43,7 @@ function TitleBar() {
                 <Button variant="contained" 
                   id = "selectFolder2" onClick={handleSelectFolder}>Select Folder 2</Button>
                 <Box component="section" sx={{ p: 2}}/>
-                <Button variant="contained">Compare</Button>
+                <Button variant="contained" onClick={handleCompareFolders}>Compare</Button>
                 <Box component="section" sx={{ p: 2}}/>
                 <Button variant="contained">Merge</Button>
             </Stack>
