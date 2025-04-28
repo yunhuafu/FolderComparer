@@ -1,6 +1,8 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
+import { registerIpcHandlers } from './ipcHandlers';
 import path from 'path';
 import isDev from 'electron-is-dev';
+
 //const isDev = false;
 console.log("isDev: " + isDev);
 
@@ -29,11 +31,13 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-  createWindow()
+  createWindow();
+  registerIpcHandlers();
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
+      createWindow();
+      registerIpcHandlers();
     }
   })
 })
@@ -44,16 +48,3 @@ app.on('window-all-closed', () => {
   }
 });
 
-ipcMain.handle('select-folder', async () => {
-  if (!mainWindow) return null;
-  const result = await dialog.showOpenDialog(mainWindow!, {
-    properties: ['openDirectory']
-  });
-
-  return result.canceled ? null : result.filePaths[0];
-});
-
-ipcMain.handle('compare-folders', async (event, folderPath1, folderPath2) => {
-  //assume that folderPath1 and folderPath2 are valid
-  return folderPath1 + " " + folderPath2;
-});

@@ -10,9 +10,9 @@ function TitleBar() {
   const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const path = await window.electronAPI.selectFolder();
     if (path){
-      if (event.target.id == "selectFolder1")
+      if ((event.target as HTMLElement).id == "selectFolder1")
         setFolderPath1(path);
-      else if (event.target.id == "selectFolder2")
+      else if ((event.target as HTMLElement).id == "selectFolder2")
         setFolderPath2(path);
     }
   };
