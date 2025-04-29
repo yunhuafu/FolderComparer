@@ -9,10 +9,11 @@ function TitleBar() {
 
   const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const path = await window.electronAPI.selectFolder();
+    let targetId:string = (event.target as HTMLElement).id;
     if (path){
-      if ((event.target as HTMLElement).id == "selectFolder1")
+      if (targetId == "selectFolder1")
         setFolderPath1(path);
-      else if ((event.target as HTMLElement).id == "selectFolder2")
+      else if (targetId == "selectFolder2")
         setFolderPath2(path);
     }
   };
@@ -39,7 +40,7 @@ function TitleBar() {
                   id = "selectFolder1" onClick={handleSelectFolder}>Select Folder 1</Button>
                 <Box component="section" sx={{ p: 2}}/>
                 <TextField variant="outlined"
-                  value = {folderPath1} ></TextField>
+                  value = {folderPath2} ></TextField>
                 <Button variant="contained" 
                   id = "selectFolder2" onClick={handleSelectFolder}>Select Folder 2</Button>
                 <Box component="section" sx={{ p: 2}}/>

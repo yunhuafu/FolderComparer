@@ -1,6 +1,7 @@
 import { BrowserWindow, dialog, ipcMain } from 'electron';
+import FolderComparer from './folderComparer';
 
-export function registerIpcHandlers(){
+function registerIpcHandlers(){
     ipcMain.handle('select-folder', async (event) => {
         const win = BrowserWindow.fromWebContents(event.sender);
         if (!win) return null;
@@ -12,7 +13,9 @@ export function registerIpcHandlers(){
       });
       
       ipcMain.handle('compare-folders', async (event, folderPath1, folderPath2) => {
-        //assume that folderPath1 and folderPath2 are valid
-        return folderPath1 + " " + folderPath2;
+        var [ret1, ret2] = await FolderComparer.compareFolders(folderPath1, folderPath2);
+        return [ret1, ret2];
       });
 }
+
+export default registerIpcHandlers;
