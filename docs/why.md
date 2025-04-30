@@ -18,3 +18,8 @@ electron supports typescript, do not use @types/electron, it is outdated and ass
 
 npm create @quick-start/electron
 you can follow the prompt and add typescript, react...
+
+```
+npm create @scope/name → resolved as @scope/create-name
+So @quick-start/electron → @quick-start/create-electron
+```
