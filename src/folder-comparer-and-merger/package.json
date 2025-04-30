@@ -4,8 +4,6 @@
   "private": true,
   "homepage": "./",
 
-  "main": "./build-electron/electron/main.js",
-
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -30,8 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "tsc -p tsconfig.electron.json && electron ./build-electron/electron/main.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

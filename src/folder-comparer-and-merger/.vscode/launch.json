@@ -6,20 +6,20 @@
             "request": "launch",
             "name": "Electron: Main",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
-            "runtimeArgs": [
-                "--remote-debugging-port=9223",
-                "--sourcemap",
-                "."
-            ],
             "windows": {
-                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
-            }
+                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
+            },
+            "runtimeArgs": ["./build-electron/electron/main.js", 
+                "--sourcemap",      //enable debugging
+                "--inspect=9222"    //chrome://inspect or used by vs code
+            ],
+            "preLaunchTask": "tsc: build - tsconfig.electron.json"
         },
         {
-            "name": "Electron: Renderer",
             "type": "chrome",
-            "request": "attach",
-            "port": 9223,
+            "name": "Electron: Renderer",
+            "request": "launch",
+            "port": 9222,
             "webRoot": "${workspaceFolder}",
             "timeout": 30000
         },
@@ -29,6 +29,14 @@
             "name": "React Only (Test)",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/react-scripts",
             "runtimeArgs": ["start", "--sourcemap"],
+            "sourceMaps": true
+        },
+
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Test",
+            "program": "${workspaceFolder}/electron/test.ts"
         }
     ],
     "compounds": [
