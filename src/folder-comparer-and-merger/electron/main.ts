@@ -2,8 +2,8 @@ import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import registerIpcHandlers from './ipcHandlers';
 import path from 'path';
 
-//import isDev from 'electron-is-dev';
-const isDev = false;
+import isDev from 'electron-is-dev';
+//const isDev = false;
 
 let mainWindow:BrowserWindow | null = null;
 

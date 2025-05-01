@@ -1,3 +1,7 @@
+npx create-react-app app --template typescript
+
+created react typescript project
+
 package.json
 ```
 //ensures React uses relative links instead of assuming http://localhost or a domain.
