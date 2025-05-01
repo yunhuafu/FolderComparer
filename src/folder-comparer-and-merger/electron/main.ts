@@ -1,10 +1,9 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import registerIpcHandlers from './ipcHandlers';
 import path from 'path';
-import isDev from 'electron-is-dev';
 
-//const isDev = false;
-console.log("isDev: " + isDev);
+//import isDev from 'electron-is-dev';
+const isDev = false;
 
 let mainWindow:BrowserWindow | null = null;
 
@@ -20,7 +19,7 @@ function createWindow() {
 
   const startURL = isDev
     ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../build/index.html')}`;
+    : `file://${path.join(__dirname, '../../build/index.html')}`;
 
   mainWindow.loadURL(startURL);
 

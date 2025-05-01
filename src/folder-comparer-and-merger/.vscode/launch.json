@@ -1,15 +1,15 @@
 {
     "version": "0.2.0",
     "configurations": [
-        {
-            // Use Webpack Dev Server, in memory .map files for debuggging
-            // If we build the app as files first, electron loads the files not the website, then there is no need to run this configuraton
-            "name": "React Only, website to be used by Renderer",
-            "type": "node",
-            "request": "launch",
-            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/react-scripts",
-            "runtimeArgs": ["start"]   
-        },
+        // {
+        //     // Use Webpack Dev Server, in memory .map files for debuggging
+        //     // If we build the app as files first, electron loads the files not the website, then there is no need to run this configuraton
+        //     "name": "React Only, website to be used by Renderer",
+        //     "type": "node",
+        //     "request": "launch",
+        //     "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/react-scripts",
+        //     "runtimeArgs": ["start"]   
+        // },
         {
             "name": "Electron: Main",
             "type": "node",
@@ -22,7 +22,7 @@
                 "--inspect=9229",    // use with chrome://inspect or vs code, default port for main process
                 "--remote-debugging-port=9222"  // use with chrome://inspect or vs code,  default port for renderer process, 
             ],
-            "preLaunchTask": "tsc: build - tsconfig.electron.json", // build first to get .map files for debugging
+            "preLaunchTask": "npm: build:all" // npm: build:all (from package.json, keep the space) first to get .map files for debugging
         },
         {
             "name": "Electron: Renderer --- Attach to Process",
@@ -40,7 +40,7 @@
         {
             "name": "Electron: All",
             "configurations": [
-                "React Only, website to be used by Renderer",
+                // "React Only, website to be used by Renderer",
                 "Electron: Main",
                 "Electron: Renderer --- Attach to Process",
             ]
