@@ -1,10 +1,10 @@
-import { BrowserWindow, dialog, ipcMain } from 'electron';
-import FolderComparer from './folderComparer';
+import { BrowserWindow, dialog, ipcMain } from 'electron'
+import FolderComparer from './folderComparer'
 
 function registerIpcHandlers(): void {
   ipcMain.handle('select-folder', async (event) => {
-    const win = BrowserWindow.fromWebContents(event.sender);
-    if (!win) return null;
+    const win = BrowserWindow.fromWebContents(event.sender)
+    if (!win) return null
     const result = await dialog.showOpenDialog(win!, {
       properties: ['openDirectory']
     })
@@ -18,4 +18,4 @@ function registerIpcHandlers(): void {
   })
 }
 
-export default registerIpcHandlers;
+export default registerIpcHandlers

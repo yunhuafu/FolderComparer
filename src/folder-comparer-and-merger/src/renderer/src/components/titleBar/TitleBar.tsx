@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import CompareIcon from '@mui/icons-material/Compare';
-import { blue } from '@mui/material/colors';
+import React, { useState } from 'react'
+import CompareIcon from '@mui/icons-material/Compare'
+import { blue } from '@mui/material/colors'
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 
 function TitleBar(): React.JSX.Element {

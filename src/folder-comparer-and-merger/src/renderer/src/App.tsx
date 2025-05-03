@@ -1,8 +1,8 @@
-import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import { Stack } from '@mui/material';
-import NavigationBar from './components/navigationBar/NavigationBar';
-import TreeView from './components/treeView/TreeView';
-import TitleBar from './components/titleBar/TitleBar';
+import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels'
+import { Stack } from '@mui/material'
+import NavigationBar from './components/navigationBar/NavigationBar'
+import TreeView from './components/treeView/TreeView'
+import TitleBar from './components/titleBar/TitleBar'
 
 function App(): React.JSX.Element {
   return (
