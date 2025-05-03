@@ -7,9 +7,8 @@
     "src/preload/*.d.ts"
   ],
   "compilerOptions": {
-    "moduleResolution": "bundler",
-    "module": "esnext",
-    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
     "composite": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
