@@ -23,7 +23,7 @@
       "webRoot": "${workspaceFolder}/src/renderer",
       "timeout": 60000,
       "presentation": {
-        "hidden": true
+        "hidden": false
       }
     }
   ],
