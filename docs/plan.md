@@ -9,11 +9,11 @@ Support plugins for file content comparison (default file diff included).
 Merge folders.
 
 Generate reports.
-
-
-
-
-
+```
+npm create @quick-start/electron
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+npm install react-resizable-panels      
+```
 
 ui to select and show two folders
 
