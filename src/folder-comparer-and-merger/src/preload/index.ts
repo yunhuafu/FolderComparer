@@ -15,7 +15,8 @@ if (process.contextIsolated) {
       // instead of exposing the complete folderComparerAndMergerAPI module
       {
         selectFolder: () => ipcRenderer.invoke('select-folder'),
-        compareFolders: () => ipcRenderer.invoke('compare-folders')
+        compareFolders: (folderPath1: string, folderPath2: string) =>
+          ipcRenderer.invoke('compare-folders', folderPath1, folderPath2)
       }
     )
   } catch (error) {
