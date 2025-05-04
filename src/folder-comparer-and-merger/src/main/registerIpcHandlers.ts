@@ -13,8 +13,8 @@ function registerIpcHandlers(): void {
   })
 
   ipcMain.handle('compare-folders', async (event, folderPath1, folderPath2) => {
-    const [ret1, ret2] = await FolderComparer.compareFolders(folderPath1, folderPath2)
-    return [ret1, ret2]
+    const result = await FolderComparer.compareFolders(folderPath1, folderPath2)
+    return result
   })
 }
 

@@ -16,7 +16,7 @@ function TitleBar(): React.JSX.Element {
     }
   }
 
-  const handleCompareFolders = async (): Promise<[string | null, string | null]> => {
+  const handleCompareFolders = async (): Promise<object[] | null> => {
     const result = await window.folderComparerAndMergerAPI.compareFolders(folderPath1, folderPath2)
     return result
   }
