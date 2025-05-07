@@ -25,7 +25,7 @@ function TitleBar(): React.JSX.Element {
   }
 
   return (
-    <Grid container>
+    <Grid container className="content">
       <Grid container sx={{ justifyContent: 'flex-start', alignItems: 'center' }}>
         <CompareIcon sx={{ color: blue[500] }} />
       </Grid>

@@ -4,3 +4,7 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
   }
+
+.content {
+  padding: 10px;
+}  

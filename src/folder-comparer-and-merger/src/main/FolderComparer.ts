@@ -11,7 +11,7 @@ class FolderComparer {
       const entries = await fs.readdir(folderPath, { withFileTypes: true })
 
       const folder = new Folder()
-      folder.name = folderPath
+      folder.name = path.basename(folderPath)
       folder.path = folderPath
       for (const entry of entries) {
         if (entry.isFile()) {

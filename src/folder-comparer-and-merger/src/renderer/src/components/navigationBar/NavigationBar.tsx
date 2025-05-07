@@ -4,8 +4,8 @@ import { Card } from '@mui/material'
 
 function NavigationBar(): React.JSX.Element {
   return (
-    <Card>
-      <KeyboardArrowRightSharpIcon />
+    <Card className="content">
+      <KeyboardArrowRightSharpIcon style={{ display: 'none' }} />
       <KeyboardArrowDownSharpIcon />
     </Card>
   )
