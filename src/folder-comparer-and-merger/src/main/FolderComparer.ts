@@ -2,6 +2,7 @@ import File from '../models/File'
 import Folder from '../models/Folder'
 import { promises as fs } from 'fs'
 import path from 'path'
+import TraverseResultItem from '../models/TraverseResultItem'
 
 class FolderComparer {
   private static async getFolder(folderPath: string): Promise<Folder | null> {
@@ -35,19 +36,17 @@ class FolderComparer {
     }
   }
 
-  public static traverse(folder: Folder, result: object[]): void {
-    const o = new Object()
-    o['path'] = folder.path
-    result.push(o)
+  public static traverse(folder: Folder, result: object[], level: number): void {
+    const folderItem: TraverseResultItem = { ...folder, type: '', isFolder: true, level: level }
+    result.push(folderItem)
 
     folder.folders.forEach((f) => {
-      FolderComparer.traverse(f, result)
+      FolderComparer.traverse(f, result, level + 1)
     })
 
-    folder.files.forEach((f) => {
-      const obj = new Object()
-      obj['path'] = f.path
-      result.push(obj)
+    folder.files.forEach((file) => {
+      const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level }
+      result.push(fileItem)
     })
   }
 
@@ -61,7 +60,7 @@ class FolderComparer {
     const folder2 = await FolderComparer.getFolder(folderPath2)
     if (folder2 == null) return null
     const result = []
-    FolderComparer.traverse(folder1, result)
+    FolderComparer.traverse(folder1, result, 0)
     return result
   }
 }

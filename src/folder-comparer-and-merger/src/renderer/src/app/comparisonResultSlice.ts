@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import TraverseResultItem from '../../../models/TraverseResultItem'
 
 export const comparisonResultSlice = createSlice({
   name: 'comparisonResult',
@@ -13,5 +14,5 @@ export const comparisonResultSlice = createSlice({
 })
 
 export const { setComparisonResult } = comparisonResultSlice.actions
-export const selectComparisonResult = (state): object[] => state.comparisonResult.value
+export const selectComparisonResult = (state): TraverseResultItem[] => state.comparisonResult.value
 export default comparisonResultSlice.reducer

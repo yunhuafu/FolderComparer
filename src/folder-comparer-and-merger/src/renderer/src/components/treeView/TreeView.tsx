@@ -5,7 +5,12 @@ import { selectComparisonResult } from '@renderer/app/comparisonResultSlice'
 function TreeView(): React.JSX.Element {
   const comparisonResult = useSelector(selectComparisonResult)
   const treeNodes = comparisonResult.map((treeNode) => (
-    <li key={treeNode.toString()}>{treeNode.toString()}</li>
+    <li
+      key={treeNode.path}
+      style={{ paddingLeft: `${treeNode.level * 20}px` }} // 20px per level
+    >
+      {treeNode.name}
+    </li>
   ))
   return (
     <div className="TreeView">
