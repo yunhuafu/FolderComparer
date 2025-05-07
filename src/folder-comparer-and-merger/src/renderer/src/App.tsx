@@ -6,10 +6,10 @@ import TitleBar from './components/titleBar/TitleBar'
 
 function App(): React.JSX.Element {
   return (
-    <div className="App">
-      <Stack>
+    <div className="app">
+      <Stack className="fill-rest">
         <TitleBar />
-        <Stack direction="row">
+        <Stack direction="row" className="fill-rest">
           <NavigationBar />
           <PanelGroup direction="horizontal">
             <Panel defaultSize={30} minSize={30}>

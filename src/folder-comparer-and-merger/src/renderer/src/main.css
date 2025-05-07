@@ -5,6 +5,16 @@ body {
     justify-content: flex-start;
   }
 
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+
+.fill-rest {
+  flex: 1; /* Takes all remaining space */
+  overflow: auto; /* Optional: enables scrolling if content overflows */
+}
+
 .content {
   padding: 10px;
 }  

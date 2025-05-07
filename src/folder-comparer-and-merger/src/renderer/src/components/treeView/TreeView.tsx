@@ -13,7 +13,7 @@ function TreeView(): React.JSX.Element {
     </li>
   ))
   return (
-    <div className="treeView content">
+    <div className="treeView">
       <ul>{treeNodes}</ul>
     </div>
   )
