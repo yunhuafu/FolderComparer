@@ -12,11 +12,11 @@ function App(): React.JSX.Element {
         <Stack direction="row">
           <NavigationBar />
           <PanelGroup direction="horizontal">
-            <Panel defaultSize={30} minSize={30} className="panel-treeview">
+            <Panel defaultSize={30} minSize={30}>
               <TreeView />
             </Panel>
             <PanelResizeHandle />
-            <Panel defaultSize={30} minSize={20} className="panel-treeview">
+            <Panel defaultSize={30} minSize={20}>
               <TreeView />
             </Panel>
           </PanelGroup>

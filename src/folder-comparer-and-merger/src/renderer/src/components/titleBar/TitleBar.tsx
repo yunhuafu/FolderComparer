@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import CompareIcon from '@mui/icons-material/Compare'
 import { blue } from '@mui/material/colors'
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
 
 function TitleBar(): React.JSX.Element {
   const [folderPath1, setFolderPath1] = useState<string>('')
   const [folderPath2, setFolderPath2] = useState<string>('')
+  const dispatch = useDispatch()
 
   const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     const path = await window.folderComparerAndMergerAPI.selectFolder()
@@ -16,9 +19,9 @@ function TitleBar(): React.JSX.Element {
     }
   }
 
-  const handleCompareFolders = async (): Promise<object[] | null> => {
+  const handleCompareFolders = async (): Promise<void> => {
     const result = await window.folderComparerAndMergerAPI.compareFolders(folderPath1, folderPath2)
-    return result
+    dispatch(setComparisonResult(result))
   }
 
   return (

@@ -27,6 +27,8 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@reduxjs/toolkit": "^2.7.0",
+    "react-redux": "^9.2.0",
     "react-resizable-panels": "^3.0.0"
   },
   "devDependencies": {
