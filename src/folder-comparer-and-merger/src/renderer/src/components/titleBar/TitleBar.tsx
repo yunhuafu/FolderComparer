@@ -4,6 +4,7 @@ import { blue } from '@mui/material/colors'
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
+import './TitleBar.css'
 
 function TitleBar(): React.JSX.Element {
   const [folderPath1, setFolderPath1] = useState<string>('')
@@ -25,8 +26,8 @@ function TitleBar(): React.JSX.Element {
   }
 
   return (
-    <Grid container className="content">
-      <Grid container sx={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+    <Grid container className="titleBarContainer">
+      <Grid container className="titleBarIconContainer">
         <CompareIcon sx={{ color: blue[500] }} />
       </Grid>
       <Grid container size="grow" sx={{ justifyContent: 'flex-end' }}>

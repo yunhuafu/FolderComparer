@@ -1,13 +1,20 @@
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp'
 import KeyboardArrowRightSharpIcon from '@mui/icons-material/KeyboardArrowRightSharp'
-import { Card } from '@mui/material'
+import './NavigationBar.css'
 
 function NavigationBar(): React.JSX.Element {
+  const show = false
   return (
-    <Card className="content">
-      <KeyboardArrowRightSharpIcon style={{ display: 'none' }} />
-      <KeyboardArrowDownSharpIcon />
-    </Card>
+    <div className="navigationBarContainer">
+      <div className="fullSize">
+        <KeyboardArrowDownSharpIcon />
+      </div>
+      {show && (
+        <div>
+          <KeyboardArrowRightSharpIcon />
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -1,0 +1,11 @@
+.titleBarContainer {
+    padding: 5px;
+  }  
+  
+.titleBarIconContainer{
+    width: 40px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+

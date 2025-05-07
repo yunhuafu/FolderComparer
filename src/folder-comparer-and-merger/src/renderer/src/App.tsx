@@ -7,7 +7,7 @@ import TitleBar from './components/titleBar/TitleBar'
 function App(): React.JSX.Element {
   return (
     <div className="app">
-      <Stack className="fill-rest">
+      <Stack>
         <TitleBar />
         <Stack direction="row" className="fill-rest">
           <NavigationBar />

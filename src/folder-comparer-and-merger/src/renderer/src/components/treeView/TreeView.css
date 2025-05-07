@@ -1,4 +1,8 @@
-.treeView {
+.treeViewContainer {
     text-align: left;
     color:black;
+    border: 2px solid lightgray;     /* visible border */
+    border-radius: 5px;
+    overflow: auto;
+    padding: 2px;
   }
