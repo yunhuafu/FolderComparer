@@ -6,23 +6,21 @@ import TitleBar from './components/titleBar/TitleBar'
 
 function App(): React.JSX.Element {
   return (
-    <div className="app">
-      <Stack>
-        <TitleBar />
-        <Stack direction="row" className="fill-rest">
-          <NavigationBar />
-          <PanelGroup direction="horizontal">
-            <Panel defaultSize={30} minSize={30}>
-              <TreeView />
-            </Panel>
-            <PanelResizeHandle />
-            <Panel defaultSize={30} minSize={20}>
-              <TreeView />
-            </Panel>
-          </PanelGroup>
-        </Stack>
+    <Stack className="app" style={{ display: 'flex', flexDirection: 'column' }}>
+      <TitleBar />
+      <Stack style={{ flex: '1 1 auto', display: 'flex', flexDirection: 'row' }}>
+        <NavigationBar />
+        <PanelGroup direction="horizontal" className="fullSize">
+          <Panel defaultSize={30} minSize={30} className="fullSize">
+            <TreeView />
+          </Panel>
+          <PanelResizeHandle />
+          <Panel defaultSize={30} minSize={20} className="fullSize">
+            <TreeView />
+          </Panel>
+        </PanelGroup>
       </Stack>
-    </div>
+    </Stack>
   )
 }
 

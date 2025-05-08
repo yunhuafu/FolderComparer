@@ -12,8 +12,9 @@ function TreeView(): React.JSX.Element {
       {treeNode.name}
     </li>
   ))
+
   return (
-    <div className="treeViewContainer">
+    <div className="treeViewContainer" style={{ width: '100%', height: '100%' }}>
       <ul>{treeNodes}</ul>
     </div>
   )
