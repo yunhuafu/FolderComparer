@@ -1,12 +1,14 @@
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp'
 import KeyboardArrowRightSharpIcon from '@mui/icons-material/KeyboardArrowRightSharp'
 import './NavigationBar.css'
+import { CustomComponentProps } from '../CustomComponent.types'
+import { Box } from '@mui/material'
 
-function NavigationBar(): React.JSX.Element {
+function NavigationBar({ sx, className, style }: CustomComponentProps): React.JSX.Element {
   const show = false
   return (
-    <div className="navigationBarContainer">
-      <div className="fullSize">
+    <Box sx={sx} className={className} style={style}>
+      <div className="navigationBarContainer">
         <KeyboardArrowDownSharpIcon />
       </div>
       {show && (
@@ -14,7 +16,7 @@ function NavigationBar(): React.JSX.Element {
           <KeyboardArrowRightSharpIcon />
         </div>
       )}
-    </div>
+    </Box>
   )
 }
 

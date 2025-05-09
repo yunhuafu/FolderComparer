@@ -1,8 +1,10 @@
 import './TreeView.css'
 import { useSelector } from 'react-redux'
 import { selectComparisonResult } from '@renderer/app/comparisonResultSlice'
+import { CustomComponentProps } from '../CustomComponent.types'
+import { Box } from '@mui/material'
 
-function TreeView(): React.JSX.Element {
+function TreeView({ sx, className, style }: CustomComponentProps): React.JSX.Element {
   const comparisonResult = useSelector(selectComparisonResult)
   const treeNodes = comparisonResult.map((treeNode) => (
     <li
@@ -14,9 +16,9 @@ function TreeView(): React.JSX.Element {
   ))
 
   return (
-    <div className="treeViewContainer" style={{ width: '100%', height: '100%' }}>
+    <Box className="treeViewContainer" sx={sx} style={style}>
       <ul>{treeNodes}</ul>
-    </div>
+    </Box>
   )
 }
 
