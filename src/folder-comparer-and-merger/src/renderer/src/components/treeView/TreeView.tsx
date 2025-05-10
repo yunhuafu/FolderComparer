@@ -16,8 +16,10 @@ function TreeView({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   ))
 
   return (
-    <Box className="treeViewContainer" sx={sx} style={style}>
-      <ul>{treeNodes}</ul>
+    <Box sx={sx} className={className} style={style}>
+      <div className="treeViewContainer">
+        <ul>{treeNodes}</ul>
+      </div>
     </Box>
   )
 }
