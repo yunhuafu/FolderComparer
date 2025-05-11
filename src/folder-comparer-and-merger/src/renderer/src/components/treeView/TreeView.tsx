@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux'
 import { selectComparisonResult } from '@renderer/app/comparisonResultSlice'
 import { CustomComponentProps } from '../CustomComponent.types'
 import { Box } from '@mui/material'
+import { forwardRef } from 'react'
 
-function TreeView({ sx, className, style }: CustomComponentProps): React.JSX.Element {
+const TreeView = forwardRef<HTMLDivElement, CustomComponentProps>((props, ref) => {
   const comparisonResult = useSelector(selectComparisonResult)
   const treeNodes = comparisonResult.map((treeNode) => (
     <li
@@ -16,12 +17,14 @@ function TreeView({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   ))
 
   return (
-    <Box sx={sx} className={className} style={style}>
+    <Box ref={ref} {...props}>
       <div className="treeViewContainer">
         <ul>{treeNodes}</ul>
       </div>
     </Box>
   )
-}
+})
+
+TreeView.displayName = 'TreeView'
 
 export default TreeView
