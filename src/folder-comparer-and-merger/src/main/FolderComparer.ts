@@ -45,7 +45,7 @@ class FolderComparer {
     })
 
     folder.files.forEach((file) => {
-      const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level }
+      const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level + 1 }
       result.push(fileItem)
     })
   }
