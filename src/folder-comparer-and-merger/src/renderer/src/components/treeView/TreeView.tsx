@@ -18,16 +18,16 @@ const TreeView = forwardRef<HTMLDivElement, CustomComponentProps>((props, ref) =
       style={{ paddingLeft: `${treeNode.level * 20}px` }} // 20px per level
     >
       {treeNode.isFolder && (
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           <KeyboardArrowDownSharpIcon />
           <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
-          {treeNode.name}
+          <span>{treeNode.name}</span>
         </div>
       )}
       {!treeNode.isFolder && (
-        <div style={{ paddingLeft: '40px' }}>
+        <div style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
           <InsertDriveFileIcon sx={{ color: blue[500] }}></InsertDriveFileIcon>
-          {treeNode.name}
+          <span>{treeNode.name}</span>
         </div>
       )}
     </li>

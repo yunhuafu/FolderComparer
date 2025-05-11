@@ -40,14 +40,18 @@ class FolderComparer {
     const folderItem: TraverseResultItem = { ...folder, type: '', isFolder: true, level: level }
     result.push(folderItem)
 
-    folder.folders.forEach((f) => {
-      FolderComparer.traverse(f, result, level + 1)
-    })
+    folder.folders
+      .sort((f1, f2) => f1.name.localeCompare(f2.name))
+      .forEach((f) => {
+        FolderComparer.traverse(f, result, level + 1)
+      })
 
-    folder.files.forEach((file) => {
-      const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level + 1 }
-      result.push(fileItem)
-    })
+    folder.files
+      .sort((f1, f2) => f1.name.localeCompare(f2.name))
+      .forEach((file) => {
+        const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level + 1 }
+        result.push(fileItem)
+      })
   }
 
   public static async compareFolders(
