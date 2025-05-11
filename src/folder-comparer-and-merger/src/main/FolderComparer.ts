@@ -9,6 +9,7 @@ class FolderComparer {
     try {
       console.log('folderPath: ' + folderPath)
       const entries = await fs.readdir(folderPath, { withFileTypes: true })
+      entries.sort((a, b) => a.name.localeCompare(b.name))
 
       const folder = new Folder()
       folder.name = path.basename(folderPath)
@@ -36,22 +37,18 @@ class FolderComparer {
     }
   }
 
-  public static traverse(folder: Folder, result: object[], level: number): void {
+  public static traverse(folder: Folder, result: TraverseResultItem[], level: number): void {
     const folderItem: TraverseResultItem = { ...folder, type: '', isFolder: true, level: level }
     result.push(folderItem)
 
-    folder.folders
-      .sort((f1, f2) => f1.name.localeCompare(f2.name))
-      .forEach((f) => {
-        FolderComparer.traverse(f, result, level + 1)
-      })
+    folder.folders.forEach((f) => {
+      FolderComparer.traverse(f, result, level + 1)
+    })
 
-    folder.files
-      .sort((f1, f2) => f1.name.localeCompare(f2.name))
-      .forEach((file) => {
-        const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level + 1 }
-        result.push(fileItem)
-      })
+    folder.files.forEach((file) => {
+      const fileItem: TraverseResultItem = { ...file, isFolder: false, level: level + 1 }
+      result.push(fileItem)
+    })
   }
 
   public static async compareFolders(
@@ -63,9 +60,11 @@ class FolderComparer {
     if (folder1 == null) return null
     const folder2 = await FolderComparer.getFolder(folderPath2)
     if (folder2 == null) return null
-    const result = []
-    FolderComparer.traverse(folder1, result, 0)
-    return result
+    const traverseResult1 = []
+    FolderComparer.traverse(folder1, traverseResult1, 0)
+    const traverseResult2 = []
+    FolderComparer.traverse(folder2, traverseResult2, 0)
+    return traverseResult1
   }
 }
 
