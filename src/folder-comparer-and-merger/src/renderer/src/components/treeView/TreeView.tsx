@@ -39,6 +39,28 @@ function traverse(
     if (comparisonResultItem[0].isDirectory)
       traverse(comparisonResultItem[2], traverseResult, level + 1)
   })
+  comparisonResult?.leftOnlyEntries.forEach((comparisonResultItem) => {
+    const item: TraverseResultItem = new TraverseResultItem(
+      comparisonResultItem[0],
+      comparisonResultItem[1],
+      level,
+      ComparisonType.LEFT_ONLY
+    )
+    traverseResult.push(item)
+    if (comparisonResultItem[0].isDirectory)
+      traverse(comparisonResultItem[2], traverseResult, level + 1)
+  })
+  comparisonResult?.rightOnlyEntries.forEach((comparisonResultItem) => {
+    const item: TraverseResultItem = new TraverseResultItem(
+      comparisonResultItem[0],
+      comparisonResultItem[1],
+      level,
+      ComparisonType.RIGHT_ONLY
+    )
+    traverseResult.push(item)
+    if (comparisonResultItem[1].isDirectory)
+      traverse(comparisonResultItem[2], traverseResult, level + 1)
+  })
 }
 
 type TreeViewProps = CustomComponentProps & {
@@ -51,7 +73,7 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
   traverse(comparisonResult, traverseResult, 0)
 
   const treeNodes = traverseResult.map((traverseResultItem) => {
-    let backgroundColor = 'pink'
+    let backgroundColor = 'White'
     switch (traverseResultItem.type) {
       case ComparisonType.SAME:
         backgroundColor = 'PaleGreen'
@@ -60,10 +82,10 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
         backgroundColor = 'Moccasin'
         break
       case ComparisonType.LEFT_ONLY:
-        backgroundColor = 'yellow'
+        if (props.isLeft == true) backgroundColor = 'Plum'
         break
       case ComparisonType.RIGHT_ONLY:
-        backgroundColor = 'yellow'
+        if (props.isLeft == false) backgroundColor = 'Plum'
         break
     }
 
