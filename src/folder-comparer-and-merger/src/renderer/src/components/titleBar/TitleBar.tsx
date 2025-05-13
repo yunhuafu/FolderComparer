@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import CompareIcon from '@mui/icons-material/Compare'
-import { blue } from '@mui/material/colors'
 import { TextField, Box, Button, Grid, Stack } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
@@ -28,9 +26,6 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
 
   return (
     <Grid container sx={sx} className={className} style={style}>
-      <Grid container className="titleBarIconContainer">
-        <CompareIcon sx={{ color: blue[500] }} />
-      </Grid>
       <Grid container size="grow" sx={{ justifyContent: 'flex-end' }}>
         <Stack direction="row" spacing={2}>
           <Box component="section" sx={{ p: 2 }} />
