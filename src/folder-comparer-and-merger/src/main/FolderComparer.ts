@@ -86,14 +86,22 @@ class FolderComparer {
           // if we are comparing files
           else {
             // if the content is the same
-            comparisonResult.sameEntries.push([
-              new DirentForIPC(entry1),
-              new DirentForIPC(entry2),
-              null
-            ])
-            // tdb
-            // else
-            // comparisonResult.differentEntries.push([entry1, entry2])
+            const buf1 = await fs.readFile(path.join(entry1.parentPath, entry1?.name))
+            const buf2 = await fs.readFile(path.join(entry2.parentPath, entry2?.name))
+            if (buf1.equals(buf2)) {
+              comparisonResult.sameEntries.push([
+                new DirentForIPC(entry1),
+                new DirentForIPC(entry2),
+                null
+              ])
+            } else {
+              comparisonResult.isIdentical = false
+              comparisonResult.differentEntries.push([
+                new DirentForIPC(entry1),
+                new DirentForIPC(entry2),
+                null
+              ])
+            }
           }
         } else {
           // shall not be able to reach here, names are either left only, right only, or the same
