@@ -1,10 +1,11 @@
+import { DirentForIPC } from './ComparisonResult'
+
 class TraverseResultItem {
-  public name: string = ''
-  public path: string = ''
-  public size: number = 0
-  public type: string = ''
-  public isFolder: boolean = true
-  public level: number = 0
+  constructor(
+    public entry1: DirentForIPC | null,
+    public entry2: DirentForIPC | null,
+    public level: number
+  ) {}
 }
 
 export default TraverseResultItem
