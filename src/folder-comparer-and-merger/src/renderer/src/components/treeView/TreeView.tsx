@@ -64,7 +64,7 @@ const TreeView = forwardRef<HTMLDivElement, CustomComponentProps>((props, ref) =
     }
 
     return (
-      <li
+      <div
         key={treeNode.entry1?.name}
         style={{ paddingLeft: `${treeNode.level * 20}px`, backgroundColor: `${backgroundColor}` }} // 20px per level
       >
@@ -81,15 +81,13 @@ const TreeView = forwardRef<HTMLDivElement, CustomComponentProps>((props, ref) =
             <span>{treeNode.entry1?.name}</span>
           </div>
         )}
-      </li>
+      </div>
     )
   })
 
   return (
     <Box ref={ref} {...props}>
-      <div className="treeViewContainer">
-        <ul>{treeNodes}</ul>
-      </div>
+      <div className="treeViewContainer">{treeNodes}</div>
     </Box>
   )
 })
