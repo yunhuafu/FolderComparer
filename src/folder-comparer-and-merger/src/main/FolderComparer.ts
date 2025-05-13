@@ -3,7 +3,7 @@ import Folder from '../models/Folder'
 import { Dirent, promises as fs } from 'fs'
 import path from 'path'
 import TraverseResultItem from '../models/TraverseResultItem'
-import ComparisonResult from '../models/ComparisonResult'
+import ComparisonResult, { DirentForIPC } from '../models/ComparisonResult'
 
 class FolderComparer {
   private static async getFolder(folderPath: string): Promise<Folder | null> {
@@ -99,8 +99,12 @@ class FolderComparer {
             path.join(entry1.parentPath, entry1.name),
             ''
           )
-          comparisonResult.leftOnlyEntries.push([entry1, null, subFolderComparisonResult])
-        } else comparisonResult.leftOnlyEntries.push([entry1, null, null])
+          comparisonResult.leftOnlyEntries.push([
+            new DirentForIPC(entry1),
+            null,
+            subFolderComparisonResult
+          ])
+        } else comparisonResult.leftOnlyEntries.push([new DirentForIPC(entry1), null, null])
       }
       // right only
       else if (entry1 == null && entry2 != null) {
@@ -110,22 +114,34 @@ class FolderComparer {
             '',
             path.join(entry2.parentPath, entry2.name)
           )
-          comparisonResult.rightOnlyEntries.push([null, entry2, subFolderComparisonResult])
-        } else comparisonResult.rightOnlyEntries.push([null, entry2, null])
+          comparisonResult.rightOnlyEntries.push([
+            null,
+            new DirentForIPC(entry2),
+            subFolderComparisonResult
+          ])
+        } else comparisonResult.rightOnlyEntries.push([null, new DirentForIPC(entry2), null])
       } else if (entry1 && entry2) {
         // same name
         if (entry1?.name == entry2?.name) {
           // if we are comparing folders
-          if (entry1 && entry2 && entry1.isDirectory() && entry2.isDirectory()){
+          if (entry1 && entry2 && entry1.isDirectory() && entry2.isDirectory()) {
             const subFolderComparisonResult: ComparisonResult = await FolderComparer.compareFolders(
               path.join(entry1.parentPath, entry1.name),
               path.join(entry2.parentPath, entry2.name)
             )
             if (subFolderComparisonResult.isIdentical == false) {
               comparisonResult.isIdentical = false
-              comparisonResult.differentEntries.push([entry1, entry2, subFolderComparisonResult])
+              comparisonResult.differentEntries.push([
+                new DirentForIPC(entry1),
+                new DirentForIPC(entry2),
+                subFolderComparisonResult
+              ])
             } else {
-              comparisonResult.sameEntries.push([entry1, entry2, subFolderComparisonResult])
+              comparisonResult.sameEntries.push([
+                new DirentForIPC(entry1),
+                new DirentForIPC(entry2),
+                subFolderComparisonResult
+              ])
             }
           }
           // if we are comparing file and folder or folder and file
@@ -135,17 +151,17 @@ class FolderComparer {
           // if we are comparing files
           else {
             // if the content is the same
-            comparisonResult.sameEntries.push([entry1, entry2, null])
+            comparisonResult.sameEntries.push([
+              new DirentForIPC(entry1),
+              new DirentForIPC(entry2),
+              null
+            ])
             // tdb
             // else
             // comparisonResult.differentEntries.push([entry1, entry2])
           }
         } else {
-          // tdb
-          // compare folders, file vs folder, folder vs file, files
-          // compare files for now
-          comparisonResult.isIdentical = false
-          comparisonResult.differentEntries.push([entry1, entry2, null])
+          // shall not be able to reach here, names are either left only, right only, or the same
         }
       }
     }
