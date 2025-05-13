@@ -76,7 +76,7 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
     let backgroundColor = 'White'
     switch (traverseResultItem.type) {
       case ComparisonType.SAME:
-        backgroundColor = 'PaleGreen'
+        backgroundColor = 'White'
         break
       case ComparisonType.DIFFERENT:
         backgroundColor = 'Moccasin'
@@ -92,29 +92,43 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
     let treeNode = traverseResultItem.entry1
     if (props.isLeft == false) treeNode = traverseResultItem.entry2
 
-    return (
-      <div
-        key={treeNode?.name}
-        style={{
-          paddingLeft: `${traverseResultItem.level * 20}px`,
-          backgroundColor: `${backgroundColor}`
-        }} // 20px per level
-      >
-        {treeNode?.isDirectory && (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <KeyboardArrowDownSharpIcon />
-            <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
-            <span>{treeNode?.name}</span>
-          </div>
-        )}
-        {!treeNode?.isDirectory && (
-          <div style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
-            <InsertDriveFileIcon sx={{ color: blue[500] }}></InsertDriveFileIcon>
-            <span>{treeNode?.name}</span>
-          </div>
-        )}
-      </div>
-    )
+    if (treeNode) {
+      return (
+        <div
+          key={treeNode?.name}
+          style={{
+            paddingLeft: `${traverseResultItem.level * 20}px`,
+            backgroundColor: `${backgroundColor}`
+          }} // 20px per level
+        >
+          {treeNode?.isDirectory && (
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <KeyboardArrowDownSharpIcon />
+              <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
+              <span>{treeNode?.name}</span>
+            </div>
+          )}
+          {!treeNode?.isDirectory && (
+            <div style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
+              <InsertDriveFileIcon sx={{ color: blue[500] }}></InsertDriveFileIcon>
+              <span>{treeNode?.name}</span>
+            </div>
+          )}
+        </div>
+      )
+    } else {
+      return (
+        <div
+          key={-1}
+          style={{
+            paddingLeft: `${traverseResultItem.level * 20}px`,
+            backgroundColor: `${backgroundColor}`
+          }} // 20px per level
+        >
+          <p>&nbsp;</p>
+        </div>
+      )
+    }
   })
 
   return (
