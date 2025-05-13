@@ -41,14 +41,18 @@ function traverse(
   })
 }
 
-const TreeView = forwardRef<HTMLDivElement, CustomComponentProps>((props, ref) => {
+type TreeViewProps = CustomComponentProps & {
+  isLeft: boolean
+}
+
+const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
   const comparisonResult = useSelector(selectComparisonResult)
   const traverseResult: TraverseResultItem[] = []
   traverse(comparisonResult, traverseResult, 0)
 
-  const treeNodes = traverseResult.map((treeNode) => {
+  const treeNodes = traverseResult.map((traverseResultItem) => {
     let backgroundColor = 'pink'
-    switch (treeNode.type) {
+    switch (traverseResultItem.type) {
       case ComparisonType.SAME:
         backgroundColor = 'PaleGreen'
         break
@@ -63,22 +67,28 @@ const TreeView = forwardRef<HTMLDivElement, CustomComponentProps>((props, ref) =
         break
     }
 
+    let treeNode = traverseResultItem.entry1
+    if (props.isLeft == false) treeNode = traverseResultItem.entry2
+
     return (
       <div
-        key={treeNode.entry1?.name}
-        style={{ paddingLeft: `${treeNode.level * 20}px`, backgroundColor: `${backgroundColor}` }} // 20px per level
+        key={treeNode?.name}
+        style={{
+          paddingLeft: `${traverseResultItem.level * 20}px`,
+          backgroundColor: `${backgroundColor}`
+        }} // 20px per level
       >
-        {treeNode.entry1?.isDirectory && (
+        {treeNode?.isDirectory && (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <KeyboardArrowDownSharpIcon />
             <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
-            <span>{treeNode.entry1?.name}</span>
+            <span>{treeNode?.name}</span>
           </div>
         )}
-        {!treeNode.entry1?.isDirectory && (
+        {!treeNode?.isDirectory && (
           <div style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
             <InsertDriveFileIcon sx={{ color: blue[500] }}></InsertDriveFileIcon>
-            <span>{treeNode.entry1?.name}</span>
+            <span>{treeNode?.name}</span>
           </div>
         )}
       </div>

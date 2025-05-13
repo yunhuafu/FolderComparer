@@ -14,8 +14,16 @@ function MainWindow({ sx, className, style }: CustomComponentProps): React.JSX.E
   return (
     <Box sx={sx} className={className} style={style}>
       <NavigationBar />
-      <TreeView ref={divRef1} style={{ flex: '1 1 auto', overflow: 'auto' }}></TreeView>
-      <TreeView ref={divRef2} style={{ flex: '1 1 auto', overflow: 'auto' }}></TreeView>
+      <TreeView
+        ref={divRef1}
+        isLeft={true}
+        style={{ flex: '1 1 auto', overflow: 'auto' }}
+      ></TreeView>
+      <TreeView
+        ref={divRef2}
+        isLeft={false}
+        style={{ flex: '1 1 auto', overflow: 'auto' }}
+      ></TreeView>
     </Box>
   )
 }
