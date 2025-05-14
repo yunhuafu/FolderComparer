@@ -1,9 +1,8 @@
-.titleBarIconContainer{
-  width: 50px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content:center;
-  align-items: center;
+.titleBarButton {
+  background-color: #4DA6FF;
+  color: #fff;
 }
 
+.titleBarButton:hover {
+  background-color: #3399FF;
+}

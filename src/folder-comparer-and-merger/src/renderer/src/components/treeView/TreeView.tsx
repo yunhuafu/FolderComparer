@@ -79,13 +79,13 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
         backgroundColor = 'White'
         break
       case ComparisonType.DIFFERENT:
-        backgroundColor = 'Moccasin'
+        backgroundColor = '#fff3cd'
         break
       case ComparisonType.LEFT_ONLY:
-        if (props.isLeft == true) backgroundColor = 'Plum'
+        if (props.isLeft == true) backgroundColor = '#d1c4e9'
         break
       case ComparisonType.RIGHT_ONLY:
-        if (props.isLeft == false) backgroundColor = 'Plum'
+        if (props.isLeft == false) backgroundColor = '#d1c4e9'
         break
     }
 
@@ -110,7 +110,7 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
           )}
           {!treeNode?.isDirectory && (
             <div style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
-              <InsertDriveFileIcon sx={{ color: blue[500] }}></InsertDriveFileIcon>
+              <InsertDriveFileIcon sx={{ color: '#4da6ff' }}></InsertDriveFileIcon>
               <span>{treeNode?.name}</span>
             </div>
           )}

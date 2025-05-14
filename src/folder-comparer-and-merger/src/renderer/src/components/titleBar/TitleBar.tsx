@@ -26,24 +26,47 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
 
   return (
     <Grid container sx={sx} className={className} style={style}>
-      <Grid container size="grow" sx={{ justifyContent: 'flex-end' }}>
+      <Grid
+        container
+        size="grow"
+        sx={{ justifyContent: 'flex-end', padding: '5px', backgroundColor: '#f5f5f5' }}
+      >
         <Stack direction="row" spacing={2}>
           <Box component="section" sx={{ p: 2 }} />
           <TextField variant="outlined" value={folderPath1}></TextField>
-          <Button variant="contained" id="selectFolder1" onClick={handleSelectFolder}>
+          <Button
+            variant="contained"
+            id="selectFolder1"
+            sx={{ textTransform: 'none' }}
+            className="titleBarButton"
+            onClick={handleSelectFolder}
+          >
             Select Folder 1
           </Button>
           <Box component="section" sx={{ p: 2 }} />
           <TextField variant="outlined" value={folderPath2}></TextField>
-          <Button variant="contained" id="selectFolder2" onClick={handleSelectFolder}>
+          <Button
+            variant="contained"
+            id="selectFolder2"
+            sx={{ textTransform: 'none' }}
+            className="titleBarButton"
+            onClick={handleSelectFolder}
+          >
             Select Folder 2
           </Button>
           <Box component="section" sx={{ p: 2 }} />
-          <Button variant="contained" onClick={handleCompareFolders}>
+          <Button
+            variant="contained"
+            sx={{ textTransform: 'none' }}
+            className="titleBarButton"
+            onClick={handleCompareFolders}
+          >
             Compare
           </Button>
           <Box component="section" sx={{ p: 2 }} />
-          <Button variant="contained">Merge</Button>
+          <Button variant="contained" sx={{ textTransform: 'none' }} className="titleBarButton">
+            Merge
+          </Button>
         </Stack>
       </Grid>
     </Grid>

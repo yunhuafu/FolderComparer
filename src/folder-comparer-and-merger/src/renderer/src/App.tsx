@@ -6,9 +6,9 @@ import NavigationBar from './components/navigationBar/NavigationBar'
 function App(): React.JSX.Element {
   return (
     <div className="app" style={{ display: 'flex', flexDirection: 'row' }}>
-      <NavigationBar style={{ flex: '0 1 auto', display: 'flex', flexDirection: 'column' }} />
+      <NavigationBar style={{ flex: '0 1 auto', display: 'flex', flexDirection: 'column', backgroundColor:'#e7e7e6' }} />
       <div style={{ flex: '1 1 auto', overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
-        <TitleBar style={{ padding: '10px' }} />
+        <TitleBar />
         <MainWindow
           style={{
             flex: '1 1 auto',

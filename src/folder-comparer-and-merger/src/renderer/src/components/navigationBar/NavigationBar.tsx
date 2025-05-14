@@ -1,7 +1,6 @@
 import './NavigationBar.css'
 import { CustomComponentProps } from '../CustomComponent.types'
 import { Box } from '@mui/material'
-import { blue } from '@mui/material/colors'
 import CompareIcon from '@mui/icons-material/Compare'
 import SettingsIcon from '@mui/icons-material/Settings'
 
@@ -9,7 +8,7 @@ function NavigationBar({ sx, className, style }: CustomComponentProps): React.JS
   return (
     <Box sx={sx} className={className} style={style}>
       <Box className="appIconContainer">
-        <CompareIcon sx={{ color: blue[500] }} />
+        <CompareIcon sx={{ color: '#37474f' }} />
       </Box>
       <Box
         style={{
@@ -20,7 +19,7 @@ function NavigationBar({ sx, className, style }: CustomComponentProps): React.JS
         }}
       >
         <Box className="appIconContainer">
-          <SettingsIcon sx={{ color: blue[500] }} />
+          <SettingsIcon sx={{ color: '#37474f' }} />
         </Box>
       </Box>
     </Box>
