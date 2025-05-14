@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextField, Box, Button, Grid, Stack } from '@mui/material'
+import { TextField, Box, Button, Stack } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
 import { CustomComponentProps } from '../CustomComponent.types'
@@ -25,15 +25,25 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   }
 
   return (
-    <Grid container sx={sx} className={className} style={style}>
-      <Grid
-        container
-        size="grow"
-        sx={{ justifyContent: 'flex-end', padding: '5px', backgroundColor: '#f5f5f5' }}
+    <Box sx={sx} className={className} style={style}>
+      <Box
+        style={{
+          flex: '1',
+          display: 'flex',
+          flexDirection: 'row',
+          padding: '10px',
+          justifyContent: 'flex-end',
+          backgroundColor: '#f5f5f5'
+        }}
       >
         <Stack direction="row" spacing={2}>
           <Box component="section" sx={{ p: 2 }} />
-          <TextField variant="outlined" value={folderPath1}></TextField>
+          <TextField
+            required
+            id="outlined-required"
+            label="Required"
+            value={folderPath1}
+          ></TextField>
           <Button
             variant="contained"
             id="selectFolder1"
@@ -44,7 +54,12 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
             Select Folder 1
           </Button>
           <Box component="section" sx={{ p: 2 }} />
-          <TextField variant="outlined" value={folderPath2}></TextField>
+          <TextField
+            required
+            id="outlined-required"
+            label="Required"
+            value={folderPath2}
+          ></TextField>
           <Button
             variant="contained"
             id="selectFolder2"
@@ -68,8 +83,8 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
             Merge
           </Button>
         </Stack>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   )
 }
 
