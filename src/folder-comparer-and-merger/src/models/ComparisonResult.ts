@@ -1,26 +1,43 @@
 import { Dirent } from 'fs'
 
-// Dirent passed to render process will lose methods due to structure copy only
-// Dirent is not directly constructible — you can't extend or instantiate it directly because it’s implemented in native code inside Node.js.
-class DirentForIPC {
+class FileSystemItem {
   name: string
   parentPath: string
   isDirectory: boolean
-  constructor(dirent: Dirent) {
-    this.name = dirent.name
-    this.parentPath = dirent.parentPath
-    this.isDirectory = dirent.isDirectory()
+  constructor(name: string, parentPath: string, isDirectory: boolean) {
+    this.name = name
+    this.parentPath = parentPath
+    this.isDirectory = isDirectory
+  }
+  static fromDirent(dirent: Dirent): FileSystemItem {
+    return new FileSystemItem(dirent.name, dirent.parentPath, dirent.isDirectory())
   }
 }
 
-// each entry [ dirent1, dirent2, comparisonResult]
-class ComparisonResult {
-  isIdentical: boolean = true
-  sameEntries: [DirentForIPC, DirentForIPC, ComparisonResult | null][] = []
-  differentEntries: [DirentForIPC, DirentForIPC, ComparisonResult | null][] = []
-  leftOnlyEntries: [DirentForIPC, null, ComparisonResult | null][] = []
-  rightOnlyEntries: [null, DirentForIPC, ComparisonResult | null][] = []
+class ComparisonResultType {
+  static SAME: string = 'same'
+  static DIFFERENT: string = 'different'
+  static LEFT_ONLY: string = 'leftOnly'
+  static RIGHT_ONLY: string = 'rightOnly'
 }
 
-export { DirentForIPC }
-export default ComparisonResult
+class ComparisonResult {
+  leftFileSystemItem: FileSystemItem | null = null
+  rightFileSystemItem: FileSystemItem | null = null
+  comparisonResultType: ComparisonResultType = ComparisonResultType.SAME
+  children: ComparisonResult[] | null = []
+
+  constructor(
+    leftFileSystemItem: FileSystemItem | null,
+    rightFileSystemItem: FileSystemItem | null,
+    comparisonResultType: string,
+    children: ComparisonResult[] | null
+  ) {
+    this.leftFileSystemItem = leftFileSystemItem
+    this.rightFileSystemItem = rightFileSystemItem
+    this.comparisonResultType = comparisonResultType
+    this.children = children
+  }
+}
+
+export { ComparisonResultType, FileSystemItem, ComparisonResult }

@@ -1,18 +1,11 @@
-import { DirentForIPC } from './ComparisonResult'
-
-export const ComparisonType = Object.freeze({
-  SAME: 'same',
-  DIFFERENT: 'different',
-  LEFT_ONLY: 'leftOnly',
-  RIGHT_ONLY: 'rightOnly'
-})
+import { FileSystemItem, ComparisonResultType } from './ComparisonResult'
 
 class TraverseResultItem {
   constructor(
-    public entry1: DirentForIPC | null,
-    public entry2: DirentForIPC | null,
-    public level: number,
-    public type: string
+    public leftFileSystemItem: FileSystemItem | null,
+    public rightFileSystemItem: FileSystemItem | null,
+    public comparisonResultType: ComparisonResultType,
+    public level: number
   ) {}
 }
 

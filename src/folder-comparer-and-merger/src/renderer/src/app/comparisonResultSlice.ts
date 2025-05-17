@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import ComparisonResult from 'src/models/ComparisonResult'
+import { ComparisonResult, ComparisonResultType } from 'src/models/ComparisonResult'
 
 export const comparisonResultSlice = createSlice({
   name: 'comparisonResult',
   initialState: {
-    value: new ComparisonResult()
+    value: new ComparisonResult(null, null, ComparisonResultType.SAME, null)
   },
   reducers: {
     setComparisonResult: (state, action: PayloadAction<ComparisonResult>) => {

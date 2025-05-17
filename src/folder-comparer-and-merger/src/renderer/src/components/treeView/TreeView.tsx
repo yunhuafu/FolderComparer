@@ -9,57 +9,23 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import { yellow } from '@mui/material/colors'
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp'
 import KeyboardArrowRightSharpIcon from '@mui/icons-material/KeyboardArrowRightSharp'
-import ComparisonResult from 'src/models/ComparisonResult'
-import TraverseResultItem, { ComparisonType } from 'src/models/TraverseResultItem'
+import { ComparisonResult, ComparisonResultType } from 'src/models/ComparisonResult'
+import TraverseResultItem from 'src/models/TraverseResultItem'
 
 function traverse(
-  comparisonResult: ComparisonResult | null,
+  comparisonResult: ComparisonResult,
   traverseResult: TraverseResultItem[],
   level: number
 ): void {
-  comparisonResult?.sameEntries.forEach((comparisonResultItem) => {
-    const item: TraverseResultItem = new TraverseResultItem(
-      comparisonResultItem[0],
-      comparisonResultItem[1],
-      level,
-      ComparisonType.SAME
-    )
-    traverseResult.push(item)
-    if (comparisonResultItem[0].isDirectory)
-      traverse(comparisonResultItem[2], traverseResult, level + 1)
-  })
-  comparisonResult?.differentEntries.forEach((comparisonResultItem) => {
-    const item: TraverseResultItem = new TraverseResultItem(
-      comparisonResultItem[0],
-      comparisonResultItem[1],
-      level,
-      ComparisonType.DIFFERENT
-    )
-    traverseResult.push(item)
-    if (comparisonResultItem[0].isDirectory)
-      traverse(comparisonResultItem[2], traverseResult, level + 1)
-  })
-  comparisonResult?.leftOnlyEntries.forEach((comparisonResultItem) => {
-    const item: TraverseResultItem = new TraverseResultItem(
-      comparisonResultItem[0],
-      comparisonResultItem[1],
-      level,
-      ComparisonType.LEFT_ONLY
-    )
-    traverseResult.push(item)
-    if (comparisonResultItem[0].isDirectory)
-      traverse(comparisonResultItem[2], traverseResult, level + 1)
-  })
-  comparisonResult?.rightOnlyEntries.forEach((comparisonResultItem) => {
-    const item: TraverseResultItem = new TraverseResultItem(
-      comparisonResultItem[0],
-      comparisonResultItem[1],
-      level,
-      ComparisonType.RIGHT_ONLY
-    )
-    traverseResult.push(item)
-    if (comparisonResultItem[1].isDirectory)
-      traverse(comparisonResultItem[2], traverseResult, level + 1)
+  const item: TraverseResultItem = new TraverseResultItem(
+    comparisonResult?.leftFileSystemItem,
+    comparisonResult?.rightFileSystemItem,
+    comparisonResult?.comparisonResultType,
+    level
+  )
+  traverseResult.push(item)
+  comparisonResult.children?.forEach((child) => {
+    traverse(child, traverseResult, level + 1)
   })
 }
 
@@ -74,23 +40,23 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
 
   const treeNodes = traverseResult.map((traverseResultItem) => {
     let backgroundColor = 'White'
-    switch (traverseResultItem.type) {
-      case ComparisonType.SAME:
+    switch (traverseResultItem.comparisonResultType) {
+      case ComparisonResultType.SAME:
         backgroundColor = 'White'
         break
-      case ComparisonType.DIFFERENT:
+      case ComparisonResultType.DIFFERENT:
         backgroundColor = '#fff3cd'
         break
-      case ComparisonType.LEFT_ONLY:
+      case ComparisonResultType.LEFT_ONLY:
         if (props.isLeft == true) backgroundColor = '#d1c4e9'
         break
-      case ComparisonType.RIGHT_ONLY:
+      case ComparisonResultType.RIGHT_ONLY:
         if (props.isLeft == false) backgroundColor = '#d1c4e9'
         break
     }
 
-    let treeNode = traverseResultItem.entry1
-    if (props.isLeft == false) treeNode = traverseResultItem.entry2
+    let treeNode = traverseResultItem.leftFileSystemItem
+    if (props.isLeft == false) treeNode = traverseResultItem.rightFileSystemItem
 
     if (treeNode) {
       return (
