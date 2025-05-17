@@ -149,13 +149,13 @@ class FolderComparer {
     }
 
     const leftFileSystemItem: FileSystemItem = new FileSystemItem(
-      '',
-      folderPath1,
+      path.basename(folderPath1),
+      path.dirname(folderPath1),
       leftFileSystemItemIsDirectory
     )
     const rightFileSystemItem: FileSystemItem = new FileSystemItem(
-      '',
-      folderPath2,
+      path.basename(folderPath2),
+      path.dirname(folderPath2),
       rightFileSystemItemIsDirectory
     )
 

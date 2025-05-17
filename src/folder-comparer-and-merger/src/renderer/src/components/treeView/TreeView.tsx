@@ -64,7 +64,9 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
           key={treeNode?.name}
           style={{
             paddingLeft: `${traverseResultItem.level * 20}px`,
-            backgroundColor: `${backgroundColor}`
+            backgroundColor: `${backgroundColor}`,
+            border: '1px solid white ',
+            borderRadius: '8px'
           }} // 20px per level
         >
           {treeNode?.isDirectory && (
