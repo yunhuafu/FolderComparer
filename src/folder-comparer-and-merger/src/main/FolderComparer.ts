@@ -144,10 +144,13 @@ class FolderComparer {
   public static async compareFolders(
     folderPath1: string,
     folderPath2: string
-  ): Promise<ComparisonResult> {
+  ): Promise<ComparisonResult | null> {
     const leftFileSystemItemIsDirectory = await FolderComparer.isDirectory(folderPath1)
     const rightFileSystemItemIsDirectory = await FolderComparer.isDirectory(folderPath2)
-    if (leftFileSystemItemIsDirectory == null || rightFileSystemItemIsDirectory == null) return null
+    if (leftFileSystemItemIsDirectory == null || rightFileSystemItemIsDirectory == null) {
+      console.log('invalid folder paths')
+      return null
+    }
 
     const leftFileSystemItem: FileSystemItem = new FileSystemItem(
       '',
@@ -156,7 +159,7 @@ class FolderComparer {
     )
     const rightFileSystemItem: FileSystemItem = new FileSystemItem(
       '',
-      folderPath1,
+      folderPath2,
       rightFileSystemItemIsDirectory
     )
 
