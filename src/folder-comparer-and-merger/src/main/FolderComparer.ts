@@ -19,7 +19,9 @@ class FolderComparer {
     leftFileSystemItem: FileSystemItem | null,
     rightFileSystemItem: FileSystemItem | null
   ): Promise<ComparisonResult> {
-    if (leftFileSystemItem == null) {
+    if (leftFileSystemItem == null && rightFileSystemItem == null) {
+      return new ComparisonResult(null, null, ComparisonResultType.SAME, null)
+    } else if (leftFileSystemItem == null && rightFileSystemItem != null) {
       if (rightFileSystemItem?.isDirectory == false) {
         return new ComparisonResult(
           leftFileSystemItem,
@@ -27,7 +29,7 @@ class FolderComparer {
           ComparisonResultType.RIGHT_ONLY,
           null
         )
-      } else if (rightFileSystemItem?.isDirectory == true) {
+      } else {
         const comparisonResult: ComparisonResult = new ComparisonResult(
           leftFileSystemItem,
           rightFileSystemItem,
@@ -45,7 +47,7 @@ class FolderComparer {
         }
         return comparisonResult
       }
-    } else if (rightFileSystemItem == null) {
+    } else if (leftFileSystemItem != null && rightFileSystemItem == null) {
       if (leftFileSystemItem?.isDirectory == false) {
         return new ComparisonResult(
           leftFileSystemItem,
@@ -53,7 +55,7 @@ class FolderComparer {
           ComparisonResultType.LEFT_ONLY,
           null
         )
-      } else if (leftFileSystemItem?.isDirectory == true) {
+      } else {
         const comparisonResult: ComparisonResult = new ComparisonResult(
           leftFileSystemItem,
           rightFileSystemItem,
@@ -76,10 +78,10 @@ class FolderComparer {
       if (leftFileSystemItem.isDirectory == false && rightFileSystemItem.isDirectory == false) {
         // if the content is the same
         const buf1 = await fs.readFile(
-          path.join(leftFileSystemItem.parentPath, leftFileSystemItem?.name)
+          path.join(leftFileSystemItem.parentPath, leftFileSystemItem.name)
         )
         const buf2 = await fs.readFile(
-          path.join(rightFileSystemItem.parentPath, rightFileSystemItem?.name)
+          path.join(rightFileSystemItem.parentPath, rightFileSystemItem.name)
         )
         if (buf1.equals(buf2)) {
           return new ComparisonResult(
@@ -99,7 +101,7 @@ class FolderComparer {
       }
       // one file one folder (tbd)
       // both directories (the first directories compared have different names, but the recursive directories compared will have same names)
-      if (leftFileSystemItem.isDirectory || rightFileSystemItem.isDirectory) {
+      else {
         const comparisonResult: ComparisonResult = new ComparisonResult(
           leftFileSystemItem,
           rightFileSystemItem,
@@ -133,12 +135,6 @@ class FolderComparer {
         return comparisonResult
       }
     }
-    return new ComparisonResult(
-      leftFileSystemItem,
-      rightFileSystemItem,
-      ComparisonResultType.SAME,
-      null
-    )
   }
 
   public static async compareFolders(
