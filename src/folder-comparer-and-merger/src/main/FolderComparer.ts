@@ -144,7 +144,7 @@ class FolderComparer {
   public static async compareFolders(
     folderPath1: string,
     folderPath2: string
-  ): Promise<ComparisonResult | null> {
+  ): Promise<ComparisonResult> {
     const leftFileSystemItemIsDirectory = await FolderComparer.isDirectory(folderPath1)
     const rightFileSystemItemIsDirectory = await FolderComparer.isDirectory(folderPath2)
     if (leftFileSystemItemIsDirectory == null || rightFileSystemItemIsDirectory == null) return null
