@@ -2,9 +2,12 @@ import { useEffect, RefObject } from 'react'
 
 export function useScrollSync(
   ref1: RefObject<HTMLDivElement | null>,
-  ref2: RefObject<HTMLDivElement | null>
+  ref2: RefObject<HTMLDivElement | null>,
+  enable: boolean
 ): void {
   useEffect(() => {
+    if (enable == false) return
+
     if (!ref1 || !ref2) return
 
     const el1 = ref1.current
@@ -34,5 +37,5 @@ export function useScrollSync(
       div1.removeEventListener('scroll', onScroll1)
       div2.removeEventListener('scroll', onScroll2)
     }
-  }, [ref1, ref2])
+  }, [ref1, ref2, enable])
 }

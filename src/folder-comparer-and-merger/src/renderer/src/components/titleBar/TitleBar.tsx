@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, Box, Button, Stack } from '@mui/material'
 import { useDispatch } from 'react-redux'
+import { Mode, setMode } from '@renderer/app/modeSlice'
 import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
 import { CustomComponentProps } from '../CustomComponent.types'
 import './TitleBar.css'
@@ -22,6 +23,7 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   const handleCompareFolders = async (): Promise<void> => {
     const result = await window.folderComparerAndMergerAPI.compareFolders(folderPath1, folderPath2)
     dispatch(setComparisonResult(result))
+    dispatch(setMode(Mode.AFTER_COMPARISON))
   }
 
   return (

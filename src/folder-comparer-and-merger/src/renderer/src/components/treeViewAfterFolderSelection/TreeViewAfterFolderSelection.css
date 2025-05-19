@@ -1,0 +1,7 @@
+.treeViewAfterSelectionContainer {
+  color:black;
+  height: 100%;
+  border: 2px solid lightgray;     /* visible border */
+  border-radius: 5px;
+  overflow: auto;  
+  }
