@@ -19,7 +19,8 @@ async function getFileSystemNode(fullPath: string): Promise<FileSystemNode> {
   let hash = ''
   const children: FileSystemNode[] = []
   if (isDirectory) {
-    const entries = await fs.readdir(fullPath, { withFileTypes: true })
+    const _entries = await fs.readdir(fullPath, { withFileTypes: true })
+    const entries = _entries.sort((a, b) => a.name.localeCompare(b.name))
     for (const entry of entries) {
       const childFullPath = path.join(entry.parentPath, entry.name)
       const child = await getFileSystemNode(childFullPath)
