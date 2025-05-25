@@ -1,5 +1,5 @@
 import { BrowserWindow, dialog, ipcMain } from 'electron'
-import compareFolders from './FolderComparer'
+import compareFolders from './compareFolders'
 
 function registerIpcHandlers(): void {
   ipcMain.handle('select-folder', async (event) => {
