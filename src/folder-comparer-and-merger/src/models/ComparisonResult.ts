@@ -1,17 +1,8 @@
-import { Dirent } from 'fs'
-
-class FileSystemItem {
+type FileSystemItem = {
   name: string
   parentPath: string
+  fullPath: string
   isDirectory: boolean
-  constructor(name: string, parentPath: string, isDirectory: boolean) {
-    this.name = name
-    this.parentPath = parentPath
-    this.isDirectory = isDirectory
-  }
-  static fromDirent(dirent: Dirent): FileSystemItem {
-    return new FileSystemItem(dirent.name, dirent.parentPath, dirent.isDirectory())
-  }
 }
 
 class ComparisonResultType {
@@ -21,23 +12,12 @@ class ComparisonResultType {
   static RIGHT_ONLY: string = 'rightOnly'
 }
 
-class ComparisonResult {
-  leftFileSystemItem: FileSystemItem | null = null
-  rightFileSystemItem: FileSystemItem | null = null
-  comparisonResultType: ComparisonResultType = ComparisonResultType.SAME
-  children: ComparisonResult[] | null = []
-
-  constructor(
-    leftFileSystemItem: FileSystemItem | null,
-    rightFileSystemItem: FileSystemItem | null,
-    comparisonResultType: string,
-    children: ComparisonResult[] | null
-  ) {
-    this.leftFileSystemItem = leftFileSystemItem
-    this.rightFileSystemItem = rightFileSystemItem
-    this.comparisonResultType = comparisonResultType
-    this.children = children
-  }
+type ComparisonResult = {
+  leftFileSystemItem: FileSystemItem | null
+  rightFileSystemItem: FileSystemItem | null
+  comparisonResultType: ComparisonResultType
+  children: ComparisonResult[] | null
 }
 
-export { ComparisonResultType, FileSystemItem, ComparisonResult }
+export type { FileSystemItem, ComparisonResult }
+export { ComparisonResultType }

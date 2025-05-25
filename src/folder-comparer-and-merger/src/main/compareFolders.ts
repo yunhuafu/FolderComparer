@@ -14,22 +14,45 @@ async function isDirectory(fullPath: string): Promise<boolean | null> {
   }
 }
 
+function getFileSystemItemFromDirent(dirent: Dirent): FileSystemItem {
+  return {
+    name: dirent.name,
+    parentPath: dirent.parentPath,
+    fullPath: path.join(dirent.parentPath, dirent.name),
+    isDirectory: dirent.isDirectory()
+  } as FileSystemItem
+}
+
+function createComparisonResult(
+  leftFileSystemItem: FileSystemItem | null,
+  rightFileSystemItem: FileSystemItem | null,
+  comparisonResultType: ComparisonResultType,
+  children: ComparisonResult[] | null
+): ComparisonResult {
+  return {
+    leftFileSystemItem: leftFileSystemItem,
+    rightFileSystemItem: rightFileSystemItem,
+    comparisonResultType: comparisonResultType,
+    children: children
+  }
+}
+
 async function compareFileSystemItems(
   leftFileSystemItem: FileSystemItem | null,
   rightFileSystemItem: FileSystemItem | null
 ): Promise<ComparisonResult> {
   if (leftFileSystemItem == null && rightFileSystemItem == null) {
-    return new ComparisonResult(null, null, ComparisonResultType.SAME, null)
+    return createComparisonResult(null, null, ComparisonResultType.SAME, null)
   } else if (leftFileSystemItem == null && rightFileSystemItem != null) {
     if (rightFileSystemItem?.isDirectory == false) {
-      return new ComparisonResult(
+      return createComparisonResult(
         leftFileSystemItem,
         rightFileSystemItem,
         ComparisonResultType.RIGHT_ONLY,
         null
       )
     } else {
-      const comparisonResult: ComparisonResult = new ComparisonResult(
+      const comparisonResult: ComparisonResult = createComparisonResult(
         leftFileSystemItem,
         rightFileSystemItem,
         ComparisonResultType.RIGHT_ONLY,
@@ -41,21 +64,21 @@ async function compareFileSystemItems(
       )
       for (const entry of entries) {
         comparisonResult.children?.push(
-          await compareFileSystemItems(null, FileSystemItem.fromDirent(entry))
+          await compareFileSystemItems(null, getFileSystemItemFromDirent(entry))
         )
       }
       return comparisonResult
     }
   } else if (leftFileSystemItem != null && rightFileSystemItem == null) {
     if (leftFileSystemItem?.isDirectory == false) {
-      return new ComparisonResult(
+      return createComparisonResult(
         leftFileSystemItem,
         rightFileSystemItem,
         ComparisonResultType.LEFT_ONLY,
         null
       )
     } else {
-      const comparisonResult: ComparisonResult = new ComparisonResult(
+      const comparisonResult: ComparisonResult = createComparisonResult(
         leftFileSystemItem,
         rightFileSystemItem,
         ComparisonResultType.LEFT_ONLY,
@@ -67,7 +90,7 @@ async function compareFileSystemItems(
       )
       for (const entry of entries) {
         comparisonResult.children?.push(
-          await compareFileSystemItems(FileSystemItem.fromDirent(entry), null)
+          await compareFileSystemItems(getFileSystemItemFromDirent(entry), null)
         )
       }
       return comparisonResult
@@ -83,14 +106,14 @@ async function compareFileSystemItems(
         path.join(rightFileSystemItem.parentPath, rightFileSystemItem.name)
       )
       if (buf1.equals(buf2)) {
-        return new ComparisonResult(
+        return createComparisonResult(
           leftFileSystemItem,
           rightFileSystemItem,
           ComparisonResultType.SAME,
           null
         )
       } else {
-        return new ComparisonResult(
+        return createComparisonResult(
           leftFileSystemItem,
           rightFileSystemItem,
           ComparisonResultType.DIFFERENT,
@@ -101,7 +124,7 @@ async function compareFileSystemItems(
     // one file one folder (tbd)
     // both directories (the first directories compared have different names, but the recursive directories compared will have same names)
     else {
-      const comparisonResult: ComparisonResult = new ComparisonResult(
+      const comparisonResult: ComparisonResult = createComparisonResult(
         leftFileSystemItem,
         rightFileSystemItem,
         ComparisonResultType.SAME,
@@ -124,8 +147,8 @@ async function compareFileSystemItems(
         const entry1 = entryMap1.get(key)
         const entry2 = entryMap2.get(key)
         const child: ComparisonResult = await compareFileSystemItems(
-          entry1 ? FileSystemItem.fromDirent(entry1) : null,
-          entry2 ? FileSystemItem.fromDirent(entry2) : null
+          entry1 ? getFileSystemItemFromDirent(entry1) : null,
+          entry2 ? getFileSystemItemFromDirent(entry2) : null
         )
         if (child.comparisonResultType != ComparisonResultType.SAME)
           comparisonResult.comparisonResultType = ComparisonResultType.DIFFERENT
@@ -147,16 +170,18 @@ async function compareFolders(
     return null
   }
 
-  const leftFileSystemItem: FileSystemItem = new FileSystemItem(
-    path.basename(folderPath1),
-    path.dirname(folderPath1),
-    leftFileSystemItemIsDirectory
-  )
-  const rightFileSystemItem: FileSystemItem = new FileSystemItem(
-    path.basename(folderPath2),
-    path.dirname(folderPath2),
-    rightFileSystemItemIsDirectory
-  )
+  const leftFileSystemItem: FileSystemItem = {
+    name: path.basename(folderPath1),
+    parentPath: path.dirname(folderPath1),
+    fullPath: folderPath1,
+    isDirectory: leftFileSystemItemIsDirectory
+  }
+  const rightFileSystemItem: FileSystemItem = {
+    name: path.basename(folderPath2),
+    parentPath: path.dirname(folderPath2),
+    fullPath: folderPath2,
+    isDirectory: rightFileSystemItemIsDirectory
+  }
 
   const comparisonResult: ComparisonResult = await compareFileSystemItems(
     leftFileSystemItem,
