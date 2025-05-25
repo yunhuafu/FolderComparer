@@ -9,8 +9,16 @@ import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import { yellow } from '@mui/material/colors'
 import KeyboardArrowDownSharpIcon from '@mui/icons-material/KeyboardArrowDownSharp'
 import KeyboardArrowRightSharpIcon from '@mui/icons-material/KeyboardArrowRightSharp'
-import { ComparisonResult, ComparisonResultType } from 'src/models/ComparisonResult'
-import TraverseResultItem from 'src/models/TraverseResultItem'
+import { ComparisonResult, ComparisonResultType, FileSystemItem } from 'src/models/ComparisonResult'
+
+class TraverseResultItem {
+  constructor(
+    public leftFileSystemItem: FileSystemItem | null,
+    public rightFileSystemItem: FileSystemItem | null,
+    public comparisonResultType: ComparisonResultType,
+    public level: number
+  ) {}
+}
 
 function traverse(
   comparisonResult: ComparisonResult,
@@ -61,7 +69,7 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>(({ isLeft, ...rest },
     if (treeNode) {
       return (
         <div
-          key={treeNode?.name}
+          key={treeNode?.fullPath}
           style={{
             paddingLeft: `${traverseResultItem.level * 20}px`,
             backgroundColor: `${backgroundColor}`,
@@ -87,7 +95,11 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>(({ isLeft, ...rest },
     } else {
       return (
         <div
-          key={-1}
+          key={
+            isLeft
+              ? traverseResultItem.rightFileSystemItem?.fullPath
+              : traverseResultItem.leftFileSystemItem?.fullPath
+          }
           style={{
             paddingLeft: `${traverseResultItem.level * 20}px`,
             backgroundColor: `${backgroundColor}`
