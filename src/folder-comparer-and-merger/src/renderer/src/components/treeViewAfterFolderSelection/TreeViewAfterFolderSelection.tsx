@@ -7,9 +7,9 @@ type TreeViewProps = CustomComponentProps & {
   isLeft: boolean
 }
 
-const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
+const TreeView = forwardRef<HTMLDivElement, TreeViewProps>(({ isLeft, ...rest }, ref) => {
   return (
-    <Box ref={ref} {...props}>
+    <Box ref={ref} {...rest}>
       <div className="treeViewAfterSelectionContainer"></div>
     </Box>
   )

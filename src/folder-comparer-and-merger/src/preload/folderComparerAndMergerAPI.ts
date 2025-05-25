@@ -1,4 +1,4 @@
-import { ComparisonResult } from "../models/ComparisonResult"
+import { ComparisonResult } from '../models/ComparisonResult'
 
 const FolderComparerAndMergerAPI = {
   selectFolder: () => Promise<string | null>,

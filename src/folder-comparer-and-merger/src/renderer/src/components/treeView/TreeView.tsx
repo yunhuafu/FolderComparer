@@ -33,7 +33,7 @@ type TreeViewProps = CustomComponentProps & {
   isLeft: boolean
 }
 
-const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
+const TreeView = forwardRef<HTMLDivElement, TreeViewProps>(({ isLeft, ...rest }, ref) => {
   const comparisonResult = useSelector(selectComparisonResult)
   const traverseResult: TraverseResultItem[] = []
   traverse(comparisonResult, traverseResult, 0)
@@ -48,15 +48,15 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
         backgroundColor = '#fff3cd'
         break
       case ComparisonResultType.LEFT_ONLY:
-        if (props.isLeft == true) backgroundColor = '#d1c4e9'
+        if (isLeft == true) backgroundColor = '#d1c4e9'
         break
       case ComparisonResultType.RIGHT_ONLY:
-        if (props.isLeft == false) backgroundColor = '#d1c4e9'
+        if (isLeft == false) backgroundColor = '#d1c4e9'
         break
     }
 
     let treeNode = traverseResultItem.leftFileSystemItem
-    if (props.isLeft == false) treeNode = traverseResultItem.rightFileSystemItem
+    if (isLeft == false) treeNode = traverseResultItem.rightFileSystemItem
 
     if (treeNode) {
       return (
@@ -100,7 +100,7 @@ const TreeView = forwardRef<HTMLDivElement, TreeViewProps>((props, ref) => {
   })
 
   return (
-    <Box ref={ref} {...props}>
+    <Box ref={ref} {...rest}>
       <div className="treeViewContainer">{treeNodes}</div>
     </Box>
   )
