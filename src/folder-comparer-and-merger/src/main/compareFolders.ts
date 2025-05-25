@@ -140,7 +140,8 @@ async function compareFileSystemItems(
       )
       const entryMap1 = new Map<string, Dirent>(entries1.map((e) => [e.name, e]))
       const entryMap2 = new Map<string, Dirent>(entries2.map((e) => [e.name, e]))
-      const keys = new Set([...entryMap1.keys(), ...entryMap2.keys()])
+      const keySet = new Set([...entryMap1.keys(), ...entryMap2.keys()])
+      const keys = Array.from(keySet).sort((a, b) => a.localeCompare(b))
 
       // !!! forEach(async ...) doesn’t Await
       for (const key of keys) {
