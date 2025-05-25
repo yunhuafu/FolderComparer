@@ -5,6 +5,7 @@ import { Mode, setMode } from '@renderer/app/modeSlice'
 import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
 import { CustomComponentProps } from '../CustomComponent.types'
 import './TitleBar.css'
+import { FileSystemNode } from 'src/models/FileSystemNode'
 
 function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Element {
   const [folderPath1, setFolderPath1] = useState<string>('')
@@ -12,11 +13,12 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   const dispatch = useDispatch()
 
   const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-    const path = await window.folderComparerAndMergerAPI.selectFolder()
-    const targetId: string = (event.target as HTMLElement).id
-    if (path) {
-      if (targetId == 'selectFolder1') setFolderPath1(path)
-      else if (targetId == 'selectFolder2') setFolderPath2(path)
+    const fileSystemNode: FileSystemNode | null =
+      await window.folderComparerAndMergerAPI.selectFolder()
+    if (fileSystemNode) {
+      const targetId: string = (event.target as HTMLElement).id
+      if (targetId == 'selectFolder1') setFolderPath1(fileSystemNode.fullPath)
+      else if (targetId == 'selectFolder2') setFolderPath2(fileSystemNode.fullPath)
     }
   }
 
