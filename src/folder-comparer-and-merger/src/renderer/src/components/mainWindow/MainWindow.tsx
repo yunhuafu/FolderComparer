@@ -31,12 +31,12 @@ function MainWindow({ sx, className, style }: CustomComponentProps): React.JSX.E
       <TreeViewComponent
         ref={divRef1}
         isLeft={true}
-        style={{ flex: '1 1 auto', overflow: 'auto' }}
+        style={{ width: '50%', overflow: 'auto' }}
       ></TreeViewComponent>
       <TreeViewComponent
         ref={divRef2}
         isLeft={false}
-        style={{ flex: '1 1 auto', overflow: 'auto' }}
+        style={{ width: '50%', overflow: 'auto' }}
       ></TreeViewComponent>
     </Box>
   )
