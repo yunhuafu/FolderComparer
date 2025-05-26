@@ -18,6 +18,7 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
     const fileSystemNode: FileSystemNode | null =
       await window.folderComparerAndMergerAPI.selectFolder()
     if (fileSystemNode) {
+      dispatch(setMode(Mode.AFTER_FOLDER_SELECTION))
       const targetId: string = (event.target as HTMLElement).id
       if (targetId == 'selectFolder1') {
         setFolderPath1(fileSystemNode.fullPath)

@@ -62,43 +62,61 @@ function getFileSystemViewNode(fileSystemNode: FileSystemNode): FileSystemViewNo
   }
 }
 
-function getTreeNode(fileSystemViewNode: FileSystemViewNode, level: number): React.JSX.Element {
+const groupBackgroundColors: string[] = ['#D6F0FF', '#DFFFE0', '#FFEACF'] // Sky Blue, Mint Green,Pale Orange
+
+function getTreeNode(
+  fileSystemViewNode: FileSystemViewNode,
+  level: number,
+  groupBackgroundColor: string = 'white'
+): React.JSX.Element {
   if (fileSystemViewNode.isDirectory == false) {
     return (
       <div
         key={fileSystemViewNode.fullPath}
         style={{
-          paddingLeft: `${level * 20}px`,
+          backgroundColor: `${groupBackgroundColor}`,
           border: '1px solid white ',
-          borderRadius: '8px'
-        }} // 20px per level
+          borderRadius: '8px',
+          paddingLeft: `${level * 20 + 20}px`,
+          display: 'flex',
+          alignItems: 'center'
+        }} // 20px per level, 20px more because it is a file
       >
-        <div style={{ paddingLeft: '20px', display: 'flex', alignItems: 'center' }}>
-          <InsertDriveFileIcon sx={{ color: '#4da6ff' }}></InsertDriveFileIcon>
-          <span>{fileSystemViewNode.name}</span>
-        </div>
+        <InsertDriveFileIcon sx={{ color: '#4da6ff' }}></InsertDriveFileIcon>
+        <span>{fileSystemViewNode.name}</span>
       </div>
     )
   } else {
+    let numberOfGroupsWithDuplicatedFiles: number = 0
     return (
-      <div
-        key={fileSystemViewNode.fullPath}
-        style={{
-          paddingLeft: `${level * 20}px`,
-          border: '1px solid white ',
-          borderRadius: '8px'
-        }} // 20px per level
-      >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div>
+        <div
+          key={fileSystemViewNode.fullPath}
+          style={{
+            border: '1px solid white ',
+            borderRadius: '8px',
+            paddingLeft: `${level * 20}px`,
+            display: 'flex',
+            alignItems: 'center'
+          }} // 20px per level
+        >
           <KeyboardArrowDownSharpIcon />
           <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
           <span>{fileSystemViewNode?.name}</span>
         </div>
         {fileSystemViewNode.groupedChildren.map((group, index) => {
+          let groupBackgroundColor = 'white'
+          if (group.length > 1) {
+            groupBackgroundColor =
+              groupBackgroundColors[
+                numberOfGroupsWithDuplicatedFiles % groupBackgroundColors.length
+              ]
+            numberOfGroupsWithDuplicatedFiles++
+          }
           return (
             <div key={group[0].fullPath + ' - group'}>
               {group.map((f) => {
-                return getTreeNode(f, level + 1)
+                return getTreeNode(f, level + 1, groupBackgroundColor)
               })}
             </div>
           )
