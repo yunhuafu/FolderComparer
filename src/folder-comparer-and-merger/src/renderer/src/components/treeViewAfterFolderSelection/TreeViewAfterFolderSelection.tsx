@@ -69,18 +69,47 @@ function getTreeNode(
   level: number,
   groupBackgroundColor: string = 'white'
 ): React.JSX.Element {
+  function getSafeId(input: string): string {
+    // Replace all characters except letters, digits, underscores, and hyphens with "_"
+    return input.replace(/[^\w-]/g, '_')
+  }
+
+  function handleCollapse(
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    fileSystemViewNode: FileSystemViewNode
+  ): void {
+    const safeId = getSafeId(fileSystemViewNode.fullPath)
+    const element = document.getElementById(safeId + 'Children')
+    if (element != null) element.style.display = 'none'
+    const toggle = document.getElementById(safeId + 'Collapsed')
+    if (toggle != null) toggle.style.display = 'block'
+    event.currentTarget.style.display = 'none'
+  }
+
+  function handleExpand(
+    event: React.MouseEvent<SVGElement, MouseEvent>,
+    fileSystemViewNode: FileSystemViewNode
+  ): void {
+    const safeId = getSafeId(fileSystemViewNode.fullPath)
+    const element = document.getElementById(safeId + 'Children')
+    if (element != null) element.style.display = 'block'
+    const eventElement = document.getElementById(safeId + 'Expanded')
+    if (eventElement != null) eventElement.style.display = 'block'
+    event.currentTarget.style.display = 'none'
+  }
+
   if (fileSystemViewNode.isDirectory == false) {
     return (
       <div
-        key={fileSystemViewNode.fullPath}
+        key={getSafeId(fileSystemViewNode.fullPath)}
         style={{
           backgroundColor: `${groupBackgroundColor}`,
           border: '1px solid white ',
           borderRadius: '8px',
-          paddingLeft: `${level * 20 + 20}px`,
+          paddingLeft: `${level * 20 + 20}px`, // 20px per level, 20px more because it is a file
           display: 'flex',
           alignItems: 'center'
-        }} // 20px per level, 20px more because it is a file
+        }}
       >
         <InsertDriveFileIcon sx={{ color: '#4da6ff' }}></InsertDriveFileIcon>
         <span>{fileSystemViewNode.name}</span>
@@ -89,9 +118,8 @@ function getTreeNode(
   } else {
     let numberOfGroupsWithDuplicatedFiles: number = 0
     return (
-      <div>
+      <div key={getSafeId(fileSystemViewNode.fullPath)}>
         <div
-          key={fileSystemViewNode.fullPath}
           style={{
             border: '1px solid white ',
             borderRadius: '8px',
@@ -100,27 +128,37 @@ function getTreeNode(
             alignItems: 'center'
           }} // 20px per level
         >
-          <KeyboardArrowDownSharpIcon />
+          <KeyboardArrowDownSharpIcon
+            id={getSafeId(fileSystemViewNode.fullPath + 'Expanded')}
+            onClick={(event) => handleCollapse(event, fileSystemViewNode)}
+          />
+          <KeyboardArrowRightSharpIcon
+            id={getSafeId(fileSystemViewNode.fullPath + 'Collapsed')}
+            onClick={(event) => handleExpand(event, fileSystemViewNode)}
+            style={{ display: 'none' }}
+          />
           <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
           <span>{fileSystemViewNode?.name}</span>
         </div>
-        {fileSystemViewNode.groupedChildren.map((group, index) => {
-          let groupBackgroundColor = 'white'
-          if (group.length > 1) {
-            groupBackgroundColor =
-              groupBackgroundColors[
-                numberOfGroupsWithDuplicatedFiles % groupBackgroundColors.length
-              ]
-            numberOfGroupsWithDuplicatedFiles++
-          }
-          return (
-            <div key={group[0].fullPath + ' - group'}>
-              {group.map((f) => {
-                return getTreeNode(f, level + 1, groupBackgroundColor)
-              })}
-            </div>
-          )
-        })}
+        <div id={getSafeId(fileSystemViewNode.fullPath + 'Children')}>
+          {fileSystemViewNode.groupedChildren.map((group) => {
+            let groupBackgroundColor = 'white'
+            if (group.length > 1) {
+              groupBackgroundColor =
+                groupBackgroundColors[
+                  numberOfGroupsWithDuplicatedFiles % groupBackgroundColors.length
+                ]
+              numberOfGroupsWithDuplicatedFiles++
+            }
+            return (
+              <div key={getSafeId(group[0].fullPath + 'Group')}>
+                {group.map((f) => {
+                  return getTreeNode(f, level + 1, groupBackgroundColor)
+                })}
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
