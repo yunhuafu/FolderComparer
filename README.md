@@ -4,4 +4,9 @@ This project is my effort to bring order to that chaos. It **compares folders**,
 
 This app is developed with **Electron and React**, is cross-platform, and can be built for **Windows, macOS, and Linux**. It is currently a work in progress.
 
-[![Watch the video](https://raw.githubusercontent.com/yunhuafu/FolderComparerAndMerger/1-list-folder-content-with-duplicated-files-grouped-and-marked-in-color/media/Screenshot.png)](https://raw.githubusercontent.com/yunhuafu/FolderComparerAndMerger/1-list-folder-content-with-duplicated-files-grouped-and-marked-in-color/media/Screen%20Recording.mov)
+![Screenshot of app](./media/Screenshot-SelectFolder.png)
+
+![Screenshot of app](./media/Screenshot-Compare.png)
+
+https://github.com/user-attachments/assets/7778878e-00f1-4945-add4-b41550da9bd9
+
