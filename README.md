@@ -3,4 +3,5 @@ Over time, I ended up with a jungle of folders—some nearly identical, others h
 This project is my effort to bring order to that chaos. It **compares folders**, helps **move and merge files**, and **deletes duplicates** to clean up messy directories.
 
 This app is developed with **Electron and React**, is cross-platform, and can be built for **Windows, macOS, and Linux**. It is currently a work in progress.
-![Screenshot of app](./Screenshot.png)
+
+[![Watch the video](./media/Screenshot.png)](./media/Screen%20Recording.mov)
