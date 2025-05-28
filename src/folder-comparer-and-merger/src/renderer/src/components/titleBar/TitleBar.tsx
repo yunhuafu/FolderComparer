@@ -38,64 +38,51 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
 
   return (
     <Box sx={sx} className={className} style={style}>
-      <Box
+      <Stack
+        direction="row"
+        spacing={{ xs: 1, sm: 2, md: 3 }} // 8px, 16px, 24px
         style={{
           flex: '1',
           display: 'flex',
           flexDirection: 'row',
           padding: '10px',
           justifyContent: 'flex-end',
-          backgroundColor: '#f5f5f5'
+          backgroundColor: '#f5f5f5',
+          flexWrap: 'wrap' // allow wrapping
         }}
       >
-        <Stack direction="row" spacing={2}>
-          <Box component="section" sx={{ p: 2 }} />
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            value={folderPath1}
-          ></TextField>
-          <Button
-            variant="contained"
-            id="selectFolder1"
-            sx={{ textTransform: 'none' }}
-            className="titleBarButton"
-            onClick={handleSelectFolder}
-          >
-            Select Folder 1
-          </Button>
-          <Box component="section" sx={{ p: 2 }} />
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            value={folderPath2}
-          ></TextField>
-          <Button
-            variant="contained"
-            id="selectFolder2"
-            sx={{ textTransform: 'none' }}
-            className="titleBarButton"
-            onClick={handleSelectFolder}
-          >
-            Select Folder 2
-          </Button>
-          <Box component="section" sx={{ p: 2 }} />
-          <Button
-            variant="contained"
-            sx={{ textTransform: 'none' }}
-            className="titleBarButton"
-            onClick={handleCompareFolders}
-          >
-            Compare
-          </Button>
-          <Box component="section" sx={{ p: 2 }} />
-          <Button variant="contained" sx={{ textTransform: 'none' }} className="titleBarButton">
-            Merge
-          </Button>
-        </Stack>
-      </Box>
+        <TextField required id="outlined-required" label="Required" value={folderPath1}></TextField>
+        <Button
+          variant="contained"
+          id="selectFolder1"
+          sx={{ textTransform: 'none' }}
+          className="titleBarButton"
+          onClick={handleSelectFolder}
+        >
+          Select Folder 1
+        </Button>
+        <TextField required id="outlined-required" label="Required" value={folderPath2}></TextField>
+        <Button
+          variant="contained"
+          id="selectFolder2"
+          sx={{ textTransform: 'none' }}
+          className="titleBarButton"
+          onClick={handleSelectFolder}
+        >
+          Select Folder 2
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ textTransform: 'none' }}
+          className="titleBarButton"
+          onClick={handleCompareFolders}
+        >
+          Compare
+        </Button>
+        <Button variant="contained" sx={{ textTransform: 'none' }} className="titleBarButton">
+          Merge
+        </Button>
+      </Stack>
     </Box>
   )
 }
