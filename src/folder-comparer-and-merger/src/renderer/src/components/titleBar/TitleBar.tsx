@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextField, Box, Button, Stack } from '@mui/material'
+import { TextField, Box, Button, Stack, InputAdornment } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { Mode, setMode } from '@renderer/app/modeSlice'
 import { setComparisonResult } from '@renderer/app/comparisonResultSlice'
@@ -8,6 +8,8 @@ import './TitleBar.css'
 import { FileSystemNode } from 'src/models/FileSystemNode'
 import { setFileSystemNode1 } from '@renderer/app/fileSystemNode1Slice'
 import { setFileSystemNode2 } from '@renderer/app/fileSystemNode2Slice'
+import FolderIcon from '@mui/icons-material/Folder'
+import { yellow } from '@mui/material/colors'
 
 function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Element {
   const [folderPath1, setFolderPath1] = useState<string>('')
@@ -51,7 +53,21 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
           flexWrap: 'wrap' // allow wrapping
         }}
       >
-        <TextField required id="outlined-required" label="Required" value={folderPath1}></TextField>
+        <TextField
+          id="folderPath1TextField"
+          label="Folder 1"
+          variant="standard"
+          value={folderPath1}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
+                </InputAdornment>
+              )
+            }
+          }}
+        ></TextField>
         <Button
           variant="contained"
           id="selectFolder1"
@@ -59,9 +75,23 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
           className="titleBarButton"
           onClick={handleSelectFolder}
         >
-          Select Folder 1
+          Browse
         </Button>
-        <TextField required id="outlined-required" label="Required" value={folderPath2}></TextField>
+        <TextField
+          id="folderPath2TextField"
+          label="Folder 2"
+          variant="standard"
+          value={folderPath2}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
+                </InputAdornment>
+              )
+            }
+          }}
+        ></TextField>
         <Button
           variant="contained"
           id="selectFolder2"
@@ -69,7 +99,7 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
           className="titleBarButton"
           onClick={handleSelectFolder}
         >
-          Select Folder 2
+          Browse
         </Button>
         <Button
           variant="contained"
