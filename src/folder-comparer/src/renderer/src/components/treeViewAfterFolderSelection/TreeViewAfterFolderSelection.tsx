@@ -23,6 +23,7 @@ type FileSystemViewNode = {
   hash: string
   isDirectory: boolean
   groupedChildren: FileSystemViewNode[][]
+  hasDuplicates: boolean
 }
 
 function getFileSystemViewNode(fileSystemNode: FileSystemNode): FileSystemViewNode {
@@ -33,14 +34,18 @@ function getFileSystemViewNode(fileSystemNode: FileSystemNode): FileSystemViewNo
       fullPath: fileSystemNode.fullPath,
       hash: fileSystemNode.hash,
       isDirectory: fileSystemNode.isDirectory,
-      groupedChildren: []
+      groupedChildren: [],
+      hasDuplicates: false
     }
   } else {
+    let hasDuplicates: boolean = false
     const displayedHashIndexMap: Map<string, number> = new Map<string, number>()
     const groupedChildren: FileSystemViewNode[][] = []
     fileSystemNode.children.forEach((f) => {
       if (f.isDirectory) {
-        groupedChildren.push([getFileSystemViewNode(f)])
+        const fvn = getFileSystemViewNode(f)
+        groupedChildren.push([fvn])
+        if (fvn.hasDuplicates) hasDuplicates = true
       } else {
         const index = displayedHashIndexMap.get(f.hash)
         if (index == undefined) {
@@ -48,6 +53,7 @@ function getFileSystemViewNode(fileSystemNode: FileSystemNode): FileSystemViewNo
           displayedHashIndexMap.set(f.hash, groupedChildren.length - 1)
         } else {
           groupedChildren[index].push(getFileSystemViewNode(f))
+          hasDuplicates = true
         }
       }
     })
@@ -57,7 +63,8 @@ function getFileSystemViewNode(fileSystemNode: FileSystemNode): FileSystemViewNo
       fullPath: fileSystemNode.fullPath,
       hash: fileSystemNode.hash,
       isDirectory: fileSystemNode.isDirectory,
-      groupedChildren: groupedChildren
+      groupedChildren: groupedChildren,
+      hasDuplicates: hasDuplicates
     }
   }
 }
@@ -138,7 +145,11 @@ function getTreeNode(
             style={{ display: 'none' }}
           />
           <FolderIcon sx={{ color: yellow[500] }}></FolderIcon>
-          <span>{fileSystemViewNode?.name}</span>
+          {fileSystemViewNode.hasDuplicates ? (
+            <span style={{ color: 'red', fontWeight: 'bold' }}>{fileSystemViewNode.name}</span>
+          ) : (
+            <span>{fileSystemViewNode.name}</span>
+          )}
         </div>
         <div id={getSafeId(fileSystemViewNode.fullPath + 'Children')}>
           {fileSystemViewNode.groupedChildren.map((group) => {

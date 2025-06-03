@@ -18,9 +18,9 @@ function InformationBar({ sx, className, style }: CustomComponentProps): React.J
             alignItems: 'center'
           }}
         >
-          <span style={{ marginRight: '3px' }}>
-            Files that have the same content but different names are grouped using
-          </span>
+          <span style={{ color: 'red', fontWeight: 'bold', marginRight: '3px' }}>AFolder</span>
+          <span>Folders that have duplicated files</span>
+          <span style={{ marginRight: '3px' }}></span>
           <span
             className="colorBlock"
             style={{ backgroundColor: '#D6F0FF', marginRight: '3px' }}
@@ -34,7 +34,9 @@ function InformationBar({ sx, className, style }: CustomComponentProps): React.J
             className="colorBlock"
             style={{ backgroundColor: '#FFEACF', marginRight: '3px' }}
           ></span>
-          <span>backgrounds</span>
+          <span style={{ marginRight: '3px' }}>
+            Files that have the same content but different names
+          </span>
         </div>
       </Box>
     )
