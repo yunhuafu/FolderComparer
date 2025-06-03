@@ -11,8 +11,8 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld(
-      'folderComparerAndMergerAPI',
-      // instead of exposing the complete folderComparerAndMergerAPI module
+      'folderComparerAPI',
+      // instead of exposing the complete folderComparerAPI module
       {
         selectFolder: () => ipcRenderer.invoke('select-folder'),
         compareFolders: (folderPath1: string, folderPath2: string) =>

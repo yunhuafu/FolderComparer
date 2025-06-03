@@ -1,4 +1,4 @@
-# folder-comparer-and-merger
+# folder-comparer
 
 An Electron application with React and TypeScript
 

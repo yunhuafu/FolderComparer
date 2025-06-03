@@ -17,8 +17,7 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   const dispatch = useDispatch()
 
   const handleSelectFolder = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-    const fileSystemNode: FileSystemNode | null =
-      await window.folderComparerAndMergerAPI.selectFolder()
+    const fileSystemNode: FileSystemNode | null = await window.folderComparerAPI.selectFolder()
     if (fileSystemNode) {
       dispatch(setMode(Mode.AFTER_FOLDER_SELECTION))
       const targetId: string = (event.target as HTMLElement).id
@@ -33,7 +32,7 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
   }
 
   const handleCompareFolders = async (): Promise<void> => {
-    const result = await window.folderComparerAndMergerAPI.compareFolders(folderPath1, folderPath2)
+    const result = await window.folderComparerAPI.compareFolders(folderPath1, folderPath2)
     dispatch(setComparisonResult(result))
     dispatch(setMode(Mode.AFTER_COMPARISON))
   }
@@ -108,9 +107,6 @@ function TitleBar({ sx, className, style }: CustomComponentProps): React.JSX.Ele
           onClick={handleCompareFolders}
         >
           Compare
-        </Button>
-        <Button variant="contained" sx={{ textTransform: 'none' }} className="titleBarButton">
-          Merge
         </Button>
       </Stack>
     </Box>

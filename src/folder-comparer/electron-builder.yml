@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: folder-comparer-and-merger
+productName: folder-comparer
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: folder-comparer-and-merger
+  executableName: folder-comparer
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
